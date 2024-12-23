@@ -1,0 +1,76 @@
+package com.ailenaguino.booktracker.feature_home.presentation.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
+import com.ailenaguino.booktracker.ui.theme.Grey
+import com.ailenaguino.booktracker.ui.theme.ItemBackground
+import com.ailenaguino.booktracker.ui.theme.LightBlue
+import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
+
+@Preview(showBackground = true, backgroundColor = 0xFF4A66B8)
+@Composable
+fun AddBookItem() {
+    Box(
+        modifier = Modifier
+            .shadow(10.dp, RoundedCornerShape(bottomEnd = 80.dp))
+            .padding(20.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(bottomEnd = 80.dp))
+            .background(ItemBackground)
+    )
+    {
+        Icon(
+            imageVector = Icons.Rounded.Add,
+            "Añadir",
+            tint = LightBlue,
+            modifier = Modifier
+                .size(200.dp)
+                .align(Alignment.BottomEnd)
+                .absoluteOffset(55.dp, 55.dp)
+        )
+        Column(
+            modifier = Modifier
+                .padding(30.dp, 30.dp, 0.dp, 0.dp)
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "Añadir un libro",
+                color = Grey,
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "¿Hay algún libro que estes leyendo?",
+                color = Grey,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+    }
+}
+
