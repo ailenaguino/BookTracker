@@ -27,53 +27,16 @@ import com.ailenaguino.booktracker.ui.theme.Grey
 import com.ailenaguino.booktracker.ui.theme.GreyTransp
 import com.ailenaguino.booktracker.ui.theme.ItemBackground
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFF4D0)
 @Composable
-fun CardItem() {
+fun cardItem(title: String, subtitle: String, icon: ImageVector, modifier: Modifier) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(ItemBackground)
-            .padding(20.dp)
-    ) {
-        Column {
-            Text(
-                text = "Lista de deseos",
-                color = Grey,
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = "No hay libros.", color = Grey, style = MaterialTheme.typography.bodyMedium)
-        }
-        Icon(
-            imageVector = Icons.Rounded.Favorite,
-            contentDescription = "Corazón",
-            tint = GreyTransp,
-            modifier = Modifier
-                .size(50.dp)
-                .align(Alignment.BottomEnd)
-                .rotate(-15f)
-                .offset(10.dp, 15.dp)
-        )
-    }
-}
-
-@Composable
-fun cardItem(title: String, subtitle: String, icon: ImageVector) {
-    Box(
-        modifier = Modifier
-            .shadow(10.dp, RoundedCornerShape(10.dp))
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(ItemBackground)
-            .padding(20.dp)
+        modifier = modifier
     ) {
         Column {
             Text(
                 text = title,
                 color = Grey,
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
             Text(text = subtitle, color = Grey, style = MaterialTheme.typography.bodyMedium)

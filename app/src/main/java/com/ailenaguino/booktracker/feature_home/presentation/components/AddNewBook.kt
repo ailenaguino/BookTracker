@@ -37,8 +37,8 @@ import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
 fun AddBookItem() {
     Box(
         modifier = Modifier
-            .shadow(10.dp, RoundedCornerShape(bottomEnd = 80.dp))
             .padding(20.dp)
+            .shadow(10.dp, RoundedCornerShape(bottomEnd = 80.dp))
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(bottomEnd = 80.dp))

@@ -56,9 +56,8 @@ fun RoundedAddItem() {
     }
 }
 
-@Preview
 @Composable
-fun ReadLaterTitle() {
+fun ReadLaterTitle(title: String) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
@@ -68,7 +67,7 @@ fun ReadLaterTitle() {
                 .align(Alignment.BottomCenter)
         )
         Text(
-            text = "Libros para leer más tarde",
+            text = title,
             color = Grey,
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.align(Alignment.Center),
@@ -81,7 +80,7 @@ fun ReadLaterTitle() {
 @Composable
 fun ReadLaterItem() {
     Column {
-        ReadLaterTitle()
+        ReadLaterTitle("Libros para leer más tarde")
 
         Spacer(modifier = Modifier.height(20.dp))
 
