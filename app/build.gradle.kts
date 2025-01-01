@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.ailenaguino.booktracker"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -42,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
     packaging {
         resources {
@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation (libs.kotlin.stdlib.jdk7)
+    implementation (libs.kotlin.stdlib)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -74,15 +76,24 @@ dependencies {
     //Dagger - Hilt
     implementation (libs.hilt.android)
     kapt (libs.hilt.android.compiler)
-    implementation (libs.androidx.hilt.lifecycle.viewmodel)
+    //implementation (libs.androidx.hilt.lifecycle.viewmodel)
     kapt (libs.androidx.hilt.compiler)
-    implementation (libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose.v120)
 
     // Retrofit
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation (libs.okhttp)
     implementation (libs.logging.interceptor)
+
+    //COIL
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 // Allow references to generated code

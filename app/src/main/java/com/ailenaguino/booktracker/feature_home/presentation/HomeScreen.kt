@@ -1,4 +1,4 @@
-package com.ailenaguino.booktracker.feature_home.presentation.components
+package com.ailenaguino.booktracker.feature_home.presentation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -36,6 +36,12 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
+import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookItem
+import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
+import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
+import com.ailenaguino.booktracker.feature_home.presentation.components.cardItem
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
@@ -56,9 +62,8 @@ val modifierForCollections = Modifier
     .height(200.dp)
     .width(IntrinsicSize.Max)
 
-@Preview(showBackground = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     LazyColumn(modifier = Modifier
         .fillMaxSize()
         .background(BoneBackground)
@@ -95,7 +100,7 @@ fun HomeScreen() {
                 )
                 Spacer(modifier = Modifier.height(30.dp))
             }
-            AddBookItem()
+            AddBookItem { navController.navigate(Screen.SearchBookScreen.route) }
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
@@ -134,7 +139,8 @@ fun HomeScreen() {
         item {
             Spacer(modifier = Modifier.height(30.dp))
             cardItem("Mi biblioteca", "No hay libros.",
-                Icons.AutoMirrored.Rounded.MenuBook, modifierForCards)
+                Icons.AutoMirrored.Rounded.MenuBook, modifierForCards
+            )
             Spacer(modifier = Modifier.height(30.dp))
         }
 

@@ -1,6 +1,7 @@
 package com.ailenaguino.booktracker.feature_home.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,9 +33,8 @@ import com.ailenaguino.booktracker.ui.theme.ItemBackground
 import com.ailenaguino.booktracker.ui.theme.LightBlue
 import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
 
-@Preview(showBackground = true, backgroundColor = 0xFF4A66B8)
 @Composable
-fun AddBookItem() {
+fun AddBookItem(onItemClick: () -> Unit) {
     Box(
         modifier = Modifier
             .padding(20.dp)
@@ -42,7 +42,7 @@ fun AddBookItem() {
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(bottomEnd = 80.dp))
-            .background(ItemBackground)
+            .background(ItemBackground).clickable { onItemClick() }
     )
     {
         Icon(

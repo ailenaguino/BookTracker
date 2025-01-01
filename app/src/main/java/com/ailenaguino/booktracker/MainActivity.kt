@@ -6,13 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.ailenaguino.booktracker.feature_home.presentation.components.HomeScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
+import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
 import com.ailenaguino.booktracker.ui.theme.BookTrackerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen()
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.HomeScreen.route
+                    ) {
+                        composable(
+                            route = Screen.HomeScreen.route
+                        ) {
+                            HomeScreen(navController)
+                        }
+                        composable(
+                            route = Screen.SearchBookScreen.route
+                        ) {
+                            SearchBookScreen()
+                        }
+                    }
                 }
             }
         }
