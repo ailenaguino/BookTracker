@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SearchBookProviderImpl @Inject constructor(private val apiService: SearchBookApiService) :
     SearchBookProvider {
     override suspend fun getBooksByTitle(title: String): List<Book> {
-        val books = apiService.getBooks(title)
-        return books.map { it.toBook() }
+        val volumes = apiService.getBooks("intitle:${title}").items
+        return volumes.map { it.volumeInfo.toBook() }
     }
 }

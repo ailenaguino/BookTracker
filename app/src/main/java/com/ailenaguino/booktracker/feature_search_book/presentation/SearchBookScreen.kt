@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -55,7 +56,7 @@ fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel()) {
             Spacer(Modifier.height(50.dp))
         }
         items(state.books){ book ->
-            SearchBookItem(book.title, book.author[0], "")
+            SearchBookItem(book.title, book.author[0], book.cover)
         }
         item {
             if (state.error.isNotBlank()){
