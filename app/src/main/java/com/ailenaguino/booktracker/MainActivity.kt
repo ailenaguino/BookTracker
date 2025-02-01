@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ailenaguino.booktracker.feature_add_book.presentation.components.AddBookScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
 import com.ailenaguino.booktracker.ui.theme.BookTrackerTheme
@@ -39,7 +40,12 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.SearchBookScreen.route
                         ) {
-                            SearchBookScreen()
+                            SearchBookScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.AddBookManuallyScreen.route
+                        ) {
+                            AddBookScreen()
                         }
                     }
                 }

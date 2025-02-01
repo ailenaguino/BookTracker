@@ -10,6 +10,8 @@ class SearchBookProviderImpl @Inject constructor(private val apiService: SearchB
     SearchBookProvider {
     override suspend fun getBooksByTitle(title: String): List<Book> {
         val volumes = apiService.getBooks("intitle:${title}").items
-        return volumes.map { it.volumeInfo.toBook() }
+        return if (!volumes.isNullOrEmpty()) {
+            volumes.map { it.volumeInfo.toBook() }
+        }else emptyList()
     }
 }
