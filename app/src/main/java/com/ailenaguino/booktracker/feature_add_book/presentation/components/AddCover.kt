@@ -20,6 +20,7 @@ import androidx.compose.material.icons.rounded.CameraAlt
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,13 +31,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
+import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookViewModel
 
-@Preview
 @Composable
-fun AddCover() {
+fun AddCover(viewModel: AddBookViewModel = hiltViewModel()) {
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val pickMedia =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -44,6 +45,7 @@ fun AddCover() {
             // photo picker.
             if (uri != null) {
                 imageUri = uri
+                viewModel.onCoverChange(uri)
                 Log.d("PhotoPicker", "Selected URI: $uri")
             } else {
                 Log.d("PhotoPicker", "No media selected")
