@@ -1,6 +1,7 @@
 package com.ailenaguino.booktracker.feature_search_book.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,7 +48,7 @@ fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel(), navContro
                 Icons.AutoMirrored.Rounded.ArrowBack,
                 "Atrás",
                 tint = Color.DarkGray,
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(30.dp).clickable { navController.popBackStack() }
             )
         }
         item {

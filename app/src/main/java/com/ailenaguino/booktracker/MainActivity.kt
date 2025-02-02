@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.AddBookManuallyScreen.route
                         ) {
-                            AddBookScreen()
+                            AddBookScreen(navController)
                         }
                     }
                 }

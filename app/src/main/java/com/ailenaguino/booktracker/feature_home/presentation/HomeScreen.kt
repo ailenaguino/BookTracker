@@ -1,5 +1,8 @@
 package com.ailenaguino.booktracker.feature_home.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +27,11 @@ import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -42,6 +50,7 @@ import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookI
 import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
 import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.cardItem
+import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
@@ -64,10 +73,17 @@ val modifierForCollections = Modifier
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    LazyColumn(modifier = Modifier
-        .fillMaxSize()
-        .background(BoneBackground)
-        .padding(horizontal = 10.dp)
+    var visible by remember { mutableStateOf(false) }
+
+    AnimatedVisibility(visible, enter = slideInVertically(), exit = slideOutVertically()) {
+        AddBookDialog(navController) { visible = false }
+    }
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BoneBackground)
+            .padding(horizontal = 10.dp)
     ) {
         item {
             Canvas(modifier = Modifier.fillMaxWidth()) {
@@ -77,7 +93,7 @@ fun HomeScreen(navController: NavController) {
                         RoundRect(
                             rect = Rect(
                                 offset = Offset(-30f, 0f),
-                                size = Size(size.width+60f, 300.dp.toPx()),
+                                size = Size(size.width + 60f, 300.dp.toPx()),
                             ),
                             bottomLeft = cornerRadius,
                             bottomRight = cornerRadius,
@@ -100,11 +116,11 @@ fun HomeScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(30.dp))
             }
-            AddBookItem { navController.navigate(Screen.SearchBookScreen.route) }
+            AddBookItem { visible = true }
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
-            ReadLaterItem()
+            ReadLaterItem{ visible = true }
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
@@ -112,7 +128,12 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
-            cardItem("Calendario de libros", "¿Cuánto has leído este mes?", Icons.Rounded.DateRange, modifierForCards)
+            cardItem(
+                "Calendario de libros",
+                "¿Cuánto has leído este mes?",
+                Icons.Rounded.DateRange,
+                modifierForCards
+            )
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
@@ -124,21 +145,36 @@ fun HomeScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Box(modifier = Modifier
-                    .weight(5f)
-                    .padding(horizontal = 10.dp)) {
-                    cardItem("Libros en pausa", "No hay libros", Icons.Rounded.Pause, modifierForCollections)
+                Box(
+                    modifier = Modifier
+                        .weight(5f)
+                        .padding(horizontal = 10.dp)
+                ) {
+                    cardItem(
+                        "Libros en pausa",
+                        "No hay libros",
+                        Icons.Rounded.Pause,
+                        modifierForCollections
+                    )
                 }
-                Box(modifier = Modifier
-                    .weight(5f)
-                    .padding(horizontal = 10.dp)) {
-                    cardItem("Libros que dejaste de leer", "No hay libros", Icons.Rounded.Flag, modifierForCollections)
+                Box(
+                    modifier = Modifier
+                        .weight(5f)
+                        .padding(horizontal = 10.dp)
+                ) {
+                    cardItem(
+                        "Libros que dejaste de leer",
+                        "No hay libros",
+                        Icons.Rounded.Flag,
+                        modifierForCollections
+                    )
                 }
             }
         }
         item {
             Spacer(modifier = Modifier.height(30.dp))
-            cardItem("Mi biblioteca", "No hay libros.",
+            cardItem(
+                "Mi biblioteca", "No hay libros.",
                 Icons.AutoMirrored.Rounded.MenuBook, modifierForCards
             )
             Spacer(modifier = Modifier.height(30.dp))

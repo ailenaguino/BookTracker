@@ -3,6 +3,7 @@ package com.ailenaguino.booktracker.feature_home.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,15 +36,15 @@ import com.ailenaguino.booktracker.ui.theme.ItemBackground
 import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
 
 
-@Preview
 @Composable
-fun RoundedAddItem() {
+fun RoundedAddItem(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .size(80.dp)
             .border(BorderStroke(5.dp, Color(0x2C424242)), CircleShape)
             .clip(CircleShape)
             .background(ItemBackground)
+            .clickable { onClick() }
     ) {
         Icon(
             imageVector = Icons.Rounded.Add,
@@ -76,9 +77,8 @@ fun ReadLaterTitle(title: String) {
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFF4D0)
 @Composable
-fun ReadLaterItem() {
+fun ReadLaterItem(onItemClick:() -> Unit) {
     Column {
         ReadLaterTitle("Libros para leer más tarde")
 
@@ -98,10 +98,10 @@ fun ReadLaterItem() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                RoundedAddItem()
-                RoundedAddItem()
-                RoundedAddItem()
-                RoundedAddItem()
+                RoundedAddItem(onItemClick)
+                RoundedAddItem(onItemClick)
+                RoundedAddItem(onItemClick)
+                RoundedAddItem(onItemClick)
             }
         }
     }

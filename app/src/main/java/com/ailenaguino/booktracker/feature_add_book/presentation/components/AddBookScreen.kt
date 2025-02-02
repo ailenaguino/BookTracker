@@ -1,6 +1,7 @@
 package com.ailenaguino.booktracker.feature_add_book.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -23,16 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 
 @OptIn(ExperimentalLayoutApi::class)
-@Preview
 @Composable
-fun AddBookScreen() {
+fun AddBookScreen(navController: NavController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +49,7 @@ fun AddBookScreen() {
                     Icons.AutoMirrored.Rounded.ArrowBack,
                     "Atrás",
                     tint = Color.DarkGray,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(30.dp).clickable { navController.popBackStack() }
                 )
                 Box(modifier = Modifier.offset(x = 15.dp)) {
                     SaveFloatingButton()
