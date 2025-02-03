@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -75,9 +76,9 @@ dependencies {
 
     //Dagger - Hilt
     implementation (libs.hilt.android)
-    kapt (libs.hilt.android.compiler)
+    ksp (libs.hilt.android.compiler)
     //implementation (libs.androidx.hilt.lifecycle.viewmodel)
-    kapt (libs.androidx.hilt.compiler)
+    ksp (libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose.v120)
 
     // Retrofit
@@ -89,14 +90,14 @@ dependencies {
     //COIL
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+
+    //ROOM
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }

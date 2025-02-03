@@ -12,11 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 
-@Preview
 @Composable
-fun SaveFloatingButton(){
+fun SaveFloatingButton(onClick:()->Unit){
     ExtendedFloatingActionButton(
-        onClick = { },
+        onClick = { onClick() },
         icon = { Icon(Icons.Rounded.Check, "Save", tint = BlueBackground) },
         text = { Text(text = "Guardar", color = Color.DarkGray) },
         containerColor = Color.White,

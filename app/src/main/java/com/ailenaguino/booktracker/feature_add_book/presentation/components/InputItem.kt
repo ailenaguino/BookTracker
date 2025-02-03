@@ -29,7 +29,7 @@ fun InputItem(text: String, keyboardType: KeyboardType, value: String, onValueCh
             label = { Text(text, fontSize = 18.sp) },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White.copy(alpha = 0f),
+                unfocusedTextColor = Color.DarkGray,
                 unfocusedBorderColor = Color.White.copy(alpha = 0f),
                 unfocusedLabelColor = Color.DarkGray,
                 unfocusedLeadingIconColor = Color.White.copy(alpha = 0f),

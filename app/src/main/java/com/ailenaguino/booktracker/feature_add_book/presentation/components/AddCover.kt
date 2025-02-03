@@ -1,6 +1,5 @@
 package com.ailenaguino.booktracker.feature_add_book.presentation.components
 
-import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -20,11 +19,7 @@ import androidx.compose.material.icons.rounded.CameraAlt
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,13 +33,10 @@ import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookViewMode
 
 @Composable
 fun AddCover(viewModel: AddBookViewModel = hiltViewModel()) {
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val uriViewModel by viewModel.cover
     val pickMedia =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            // Callback is invoked after the user selects a media item or closes the
-            // photo picker.
             if (uri != null) {
-                imageUri = uri
                 viewModel.onCoverChange(uri)
                 Log.d("PhotoPicker", "Selected URI: $uri")
             } else {
@@ -62,9 +54,9 @@ fun AddCover(viewModel: AddBookViewModel = hiltViewModel()) {
                 pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
     ) {
-        if (imageUri != null) {
+        if (uriViewModel != null) {
             AsyncImage(
-                model = imageUri,
+                model = uriViewModel,
                 contentDescription = "portada",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

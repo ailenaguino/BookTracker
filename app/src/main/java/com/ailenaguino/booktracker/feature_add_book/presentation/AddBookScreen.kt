@@ -3,7 +3,6 @@ package com.ailenaguino.booktracker.feature_add_book.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,9 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.AddCover
@@ -57,6 +55,16 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
     val title by viewModel.title.collectAsState()
     val author by viewModel.author.collectAsState()
     val totalPages by viewModel.totalPages.collectAsState()
+    val typeBook by viewModel.typeBook.collectAsState()
+    val registerProgress by viewModel.registerProgress.collectAsState()
+    val progress by viewModel.progress.collectAsState()
+    val errorMessage by viewModel.errorMessage
+
+    if (errorMessage.isNotEmpty()){
+        Dialog({viewModel.onErrorChange("")}) {
+            Text(errorMessage)
+        }
+    }
 
     val showButton by remember {
         derivedStateOf {
@@ -111,7 +119,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                     )
                 }
                 Box(modifier = Modifier.offset(x = 15.dp)) {
-                    SaveFloatingButton()
+                    SaveFloatingButton(viewModel::onSaveBook)
                 }
             }
             AnimatedVisibility(visible = showButton) {
@@ -156,10 +164,8 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 modifier = Modifier.fillMaxWidth()
             ) {
                 val typeBookOptions = listOf("libro de papel", "libro electrónico", "audio libro")
-                var selectedOption by remember { mutableStateOf("libro de papel") }
-                val onSelectionChange = { text: String -> selectedOption = text }
                 typeBookOptions.forEach { text ->
-                    TagItem(text, text == selectedOption, onSelectionChange)
+                    TagItem(text, text == typeBook, viewModel::onTypeBookChange)
                 }
             }
         }
@@ -176,10 +182,8 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 modifier = Modifier.fillMaxWidth()
             ) {
                 val registerProgressOptions = listOf("página", "porcentaje", "episodio")
-                var selectedOption by remember { mutableStateOf("página") }
-                val onSelectionChange = { text: String -> selectedOption = text }
                 registerProgressOptions.forEach { text ->
-                    TagItem(text, text == selectedOption, onSelectionChange)
+                    TagItem(text, text == registerProgress, viewModel::onRegisterProgressChange)
                 }
             }
         }
@@ -205,10 +209,8 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
             ) {
                 val progressOptions =
                     listOf("leer más tarde", "leer ahora", "lo he leído todo", "me dí por vencido")
-                var selectedOption by remember { mutableStateOf("leer más tarde") }
-                val onSelectionChange = { text: String -> selectedOption = text }
                 progressOptions.forEach { text ->
-                    TagItem(text, text == selectedOption, onSelectionChange)
+                    TagItem(text, text == progress, viewModel::onProgressChange)
                 }
             }
             Spacer(modifier = Modifier.height(18.dp))
