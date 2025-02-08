@@ -24,9 +24,12 @@ import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Flag
 import androidx.compose.material.icons.rounded.Pause
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,6 +47,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookItem
@@ -72,12 +77,22 @@ val modifierForCollections = Modifier
     .width(IntrinsicSize.Max)
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     var visible by remember { mutableStateOf(false) }
+    val books by viewModel.books.collectAsState()
+    val bookAdded by viewModel.book.collectAsState()
 
     AnimatedVisibility(visible, enter = slideInVertically(), exit = slideOutVertically()) {
         AddBookDialog(navController) { visible = false }
     }
+
+    if(bookAdded.book != null){
+        Dialog({}) {
+            Text(bookAdded.book!!.title)
+        }
+    }
+
+
 
     LazyColumn(
         modifier = Modifier
@@ -120,8 +135,19 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
-            ReadLaterItem{ visible = true }
-            Spacer(modifier = Modifier.height(30.dp))
+            if (books.error.isNotBlank()) {
+                Text(
+                    text = books.error,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            } else if (books.isLoading) {
+                CircularProgressIndicator()
+            } else {
+                ReadLaterItem(books.books) { visible = true }
+                Spacer(modifier = Modifier.height(30.dp))
+            }
         }
         item {
             cardItem("Lista de deseos", "No hay libros.", Icons.Rounded.Favorite, modifierForCards)
@@ -180,5 +206,8 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
         }
 
+    }
+    LaunchedEffect(key1 = true) {
+        viewModel.refreshReadLater()
     }
 }

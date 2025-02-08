@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.AddCover
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.InputItem
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.SaveFloatingButton
@@ -52,17 +53,21 @@ import com.ailenaguino.booktracker.ui.theme.BoneBackground
 @Composable
 fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hiltViewModel()) {
     val listState = rememberLazyListState()
-    val title by viewModel.title.collectAsState()
-    val author by viewModel.author.collectAsState()
-    val totalPages by viewModel.totalPages.collectAsState()
-    val typeBook by viewModel.typeBook.collectAsState()
-    val registerProgress by viewModel.registerProgress.collectAsState()
-    val progress by viewModel.progress.collectAsState()
+    val title by viewModel.title
+    val author by viewModel.author
+    val totalPages by viewModel.totalPages
+    val typeBook by viewModel.typeBook
+    val registerProgress by viewModel.registerProgress
+    val progress by viewModel.progress
     val errorMessage by viewModel.errorMessage
+    val result by viewModel.result
 
     if (errorMessage.isNotEmpty()){
         Dialog({viewModel.onErrorChange("")}) {
             Text(errorMessage)
+        }
+        result.let {
+            navController.navigate(Screen.HomeScreen.route + "/$result")
         }
     }
 

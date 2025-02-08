@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 
 @Composable

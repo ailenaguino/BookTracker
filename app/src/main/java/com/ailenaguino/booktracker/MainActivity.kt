@@ -47,6 +47,11 @@ class MainActivity : ComponentActivity() {
                         ) {
                             AddBookScreen(navController)
                         }
+                        composable(
+                            route = Screen.HomeScreen.route + "/{bookId}"
+                        ) {
+                            HomeScreen(navController)
+                        }
                     }
                 }
             }
