@@ -1,23 +1,21 @@
 package com.ailenaguino.booktracker.feature_add_book.presentation
 
 import android.net.Uri
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import com.ailenaguino.booktracker.Screen
+import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.feature_add_book.domain.usecases.SaveBookUseCase
+import com.ailenaguino.booktracker.feature_search_book.domain.models.GoogleBook
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddBookViewModel @Inject constructor(
-    private val saveBookUseCase: SaveBookUseCase
+    private val saveBookUseCase: SaveBookUseCase, savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _title = mutableStateOf("")
     val title = _title
@@ -45,6 +43,11 @@ class AddBookViewModel @Inject constructor(
 
     private val _result = mutableStateOf<Int?>(null)
     var result = _result
+
+    init {
+        savedStateHandle.get<GoogleBook>(Constants.PARAM_BOOK)
+            ?.let { book -> dataFromGoogleBooks(book) }
+    }
 
     fun onErrorChange(text: String) {
         _errorMessage.value = text
@@ -78,7 +81,7 @@ class AddBookViewModel @Inject constructor(
         _progress.value = text
     }
 
-    fun onSaveBook(){
+    fun onSaveBook() {
         if (title.value.isEmpty()) {
             errorMessage.value = "Por favor, ingrese un título"
         } else if (author.value.isEmpty()) {
@@ -107,5 +110,12 @@ class AddBookViewModel @Inject constructor(
             }
             //errorMessage.value = ""
         }
+    }
+
+    private fun dataFromGoogleBooks(book: GoogleBook) {
+        _title.value = book.title
+        _author.value = book.author.joinToString(", ")
+        _cover.value = Uri.parse(book.cover)
+        _totalPages.value = book.pageCount.toString()
     }
 }

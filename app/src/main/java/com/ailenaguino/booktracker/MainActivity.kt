@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
@@ -48,9 +49,14 @@ class MainActivity : ComponentActivity() {
                             AddBookScreen(navController)
                         }
                         composable(
-                            route = Screen.HomeScreen.route + "/{bookId}"
+                            route = Screen.HomeScreen.route + "/{${Constants.PARAM_BOOK_ID}}"
                         ) {
                             HomeScreen(navController)
+                        }
+                        composable(
+                            route = Screen.AddBookManuallyScreen.route + "/{${Constants.PARAM_BOOK}}"
+                        ) {
+                            AddBookScreen(navController)
                         }
                     }
                 }

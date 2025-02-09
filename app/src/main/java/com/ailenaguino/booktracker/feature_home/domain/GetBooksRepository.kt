@@ -5,4 +5,5 @@ import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 interface GetBooksRepository {
     suspend fun getBooks(): List<Book>
     suspend fun getBookById(id: Int): Book?
+    suspend fun deleteAllBooks(): Int
 }

@@ -35,7 +35,10 @@ import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.GreyTransp
 
 @Composable
-fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel(), navController: NavController) {
+fun SearchBookScreen(
+    viewModel: SearchBookViewModel = hiltViewModel(),
+    navController: NavController,
+) {
     val state = viewModel.books.value
     LazyColumn(
         modifier = Modifier
@@ -48,7 +51,9 @@ fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel(), navContro
                 Icons.AutoMirrored.Rounded.ArrowBack,
                 "Atrás",
                 tint = Color.DarkGray,
-                modifier = Modifier.size(30.dp).clickable { navController.popBackStack() }
+                modifier = Modifier
+                    .size(30.dp)
+                    .clickable { navController.popBackStack() }
             )
         }
         item {
@@ -65,14 +70,18 @@ fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel(), navContro
             SearchBookBar(viewModel)
             Spacer(Modifier.height(25.dp))
         }
-        item{
-            if(state.books.isNotEmpty() && !state.isLoading){
+        item {
+            if (state.books.isNotEmpty() && !state.isLoading) {
                 InputManuallyItem { navController.navigate(Screen.AddBookManuallyScreen.route) }
                 Spacer(Modifier.height(50.dp))
             }
         }
         items(state.books) { book ->
-            SearchBookItem(book.title, book.author[0], book.cover)
+            SearchBookItem(
+                book.title,
+                book.author.joinToString(", "),
+                book.cover
+            ) { navController.navigate(Screen.AddBookManuallyScreen.route + "/$book") }
         }
         item {
             if (state.error.isNotBlank()) {
@@ -86,7 +95,7 @@ fun SearchBookScreen(viewModel: SearchBookViewModel = hiltViewModel(), navContro
                 )
             }
             if (state.isLoading) {
-                Box(modifier= Modifier.fillMaxWidth()) {
+                Box(modifier = Modifier.fillMaxWidth()) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
                         color = BlueBackground,

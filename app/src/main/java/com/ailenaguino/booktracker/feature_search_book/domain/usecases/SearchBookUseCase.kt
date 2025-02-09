@@ -2,7 +2,7 @@ package com.ailenaguino.booktracker.feature_search_book.domain.usecases
 
 import com.ailenaguino.booktracker.common.Resource
 import com.ailenaguino.booktracker.feature_search_book.domain.SearchBookProvider
-import com.ailenaguino.booktracker.feature_search_book.domain.models.Book
+import com.ailenaguino.booktracker.feature_search_book.domain.models.GoogleBook
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -13,7 +13,7 @@ class SearchBookUseCase @Inject constructor(
     private val searchBookProvider: SearchBookProvider,
     private val formatBookThumbnailUseCase: FormatBookThumbnailUseCase
 ) {
-    operator fun invoke(title: String): Flow<Resource<List<Book>>> = flow {
+    operator fun invoke(title: String): Flow<Resource<List<GoogleBook>>> = flow {
         try {
             emit(Resource.Loading())
             val books = searchBookProvider.getBooksByTitle(title)

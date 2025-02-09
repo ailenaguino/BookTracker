@@ -1,14 +1,14 @@
 package com.ailenaguino.booktracker.feature_home.presentation
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ailenaguino.booktracker.common.BookState
-import com.ailenaguino.booktracker.common.ListBooksState
 import com.ailenaguino.booktracker.common.Constants
+import com.ailenaguino.booktracker.common.ListBooksState
 import com.ailenaguino.booktracker.common.Resource
+import com.ailenaguino.booktracker.feature_home.domain.GetBooksRepository
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBookByIdUseCase
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,7 @@ class HomeViewModel @Inject constructor(
     private val getBooksUseCase: GetBooksUseCase,
     savedStateHandle: SavedStateHandle,
     private val getBookByIdUseCase: GetBookByIdUseCase,
+    private val repo: GetBooksRepository
 ) : ViewModel() {
 
     private val _books = MutableStateFlow(ListBooksState())
@@ -61,6 +63,13 @@ class HomeViewModel @Inject constructor(
                 is Resource.Loading -> _book.value = BookState(isLoading = true)
                 is Resource.Success -> _book.value = BookState(book = it.data)
             }
+        }.launchIn(viewModelScope)
+    }
+
+    fun deleteAllBooks(){
+        viewModelScope.launch {
+            val result = repo.deleteAllBooks()
+            Log.i("delete books", "$result")
         }
     }
 }
