@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
@@ -54,7 +56,8 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController)
                         }
                         composable(
-                            route = Screen.AddBookManuallyScreen.route + "/{${Constants.PARAM_BOOK}}"
+                            route = Screen.AddBookManuallyScreen.route + "/{${Constants.PARAM_BOOK}}",
+                            arguments = listOf(navArgument(Constants.PARAM_BOOK) {type = NavType.StringType})
                         ) {
                             AddBookScreen(navController)
                         }

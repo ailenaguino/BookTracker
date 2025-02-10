@@ -1,6 +1,7 @@
 package com.ailenaguino.booktracker.feature_add_book.presentation
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.feature_add_book.domain.usecases.SaveBookUseCase
 import com.ailenaguino.booktracker.feature_search_book.domain.models.GoogleBook
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,8 +47,10 @@ class AddBookViewModel @Inject constructor(
     var result = _result
 
     init {
-        savedStateHandle.get<GoogleBook>(Constants.PARAM_BOOK)
-            ?.let { book -> dataFromGoogleBooks(book) }
+        savedStateHandle.get<String>(Constants.PARAM_BOOK)
+            ?.let { book -> Log.i("param book", book)
+            val decodedBook = Gson().fromJson(book, GoogleBook::class.java)
+            if (decodedBook!=null) dataFromGoogleBooks(decodedBook)}
     }
 
     fun onErrorChange(text: String) {

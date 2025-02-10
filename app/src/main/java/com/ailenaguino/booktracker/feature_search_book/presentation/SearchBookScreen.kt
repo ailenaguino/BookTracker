@@ -1,5 +1,6 @@
 package com.ailenaguino.booktracker.feature_search_book.presentation
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import com.ailenaguino.booktracker.feature_search_book.presentation.components.S
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.GreyTransp
+import com.google.gson.Gson
 
 @Composable
 fun SearchBookScreen(
@@ -77,11 +79,12 @@ fun SearchBookScreen(
             }
         }
         items(state.books) { book ->
+            val encodedBook = Uri.encode(Gson().toJson(book))
             SearchBookItem(
                 book.title,
                 book.author.joinToString(", "),
                 book.cover
-            ) { navController.navigate(Screen.AddBookManuallyScreen.route + "/$book") }
+            ) { navController.navigate(Screen.AddBookManuallyScreen.route + "/$encodedBook") }
         }
         item {
             if (state.error.isNotBlank()) {
