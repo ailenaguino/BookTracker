@@ -126,9 +126,6 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                     SaveFloatingButton(viewModel::onSaveBook)
                 }
             }
-            AnimatedVisibility(visible = showButton) {
-
-            }
         }
         item {
             Text(

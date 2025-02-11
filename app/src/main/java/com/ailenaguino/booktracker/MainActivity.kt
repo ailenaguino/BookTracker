@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
+import com.ailenaguino.booktracker.feature_library.presentation.LibraryScreen
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
 import com.ailenaguino.booktracker.ui.theme.BookTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +61,11 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(navArgument(Constants.PARAM_BOOK) {type = NavType.StringType})
                         ) {
                             AddBookScreen(navController)
+                        }
+                        composable(
+                            route = Screen.LibraryScreen.route
+                        ) {
+                            LibraryScreen(navController = navController)
                         }
                     }
                 }

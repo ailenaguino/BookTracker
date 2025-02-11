@@ -5,6 +5,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,11 +49,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.BookAddedDialog
 import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
 import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
-import com.ailenaguino.booktracker.feature_home.presentation.components.cardItem
+import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
 import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
@@ -89,8 +91,10 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     if (bookAdded.book != null && !wasNotified) openBookAddedDialog = true
 
     AnimatedVisibility(openBookAddedDialog) {
-        BookAddedDialog({openBookAddedDialog = false
-                        wasNotified = true}, bookAdded)
+        BookAddedDialog({
+            openBookAddedDialog = false
+            wasNotified = true
+        }, bookAdded)
     }
 
     LazyColumn(
@@ -149,11 +153,11 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             }
         }
         item {
-            cardItem("Lista de deseos", "No hay libros.", Icons.Rounded.Favorite, modifierForCards)
+            CardItem("Lista de deseos", "No hay libros.", Icons.Rounded.Favorite, modifierForCards)
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
-            cardItem(
+            CardItem(
                 "Calendario de libros",
                 "¿Cuánto has leído este mes?",
                 Icons.Rounded.DateRange,
@@ -175,7 +179,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         .weight(5f)
                         .padding(horizontal = 10.dp)
                 ) {
-                    cardItem(
+                    CardItem(
                         "Libros en pausa",
                         "No hay libros",
                         Icons.Rounded.Pause,
@@ -187,7 +191,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         .weight(5f)
                         .padding(horizontal = 10.dp)
                 ) {
-                    cardItem(
+                    CardItem(
                         "Libros que dejaste de leer",
                         "No hay libros",
                         Icons.Rounded.Flag,
@@ -198,10 +202,13 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
         }
         item {
             Spacer(modifier = Modifier.height(30.dp))
-            cardItem(
-                "Mi biblioteca", "No hay libros.",
-                Icons.AutoMirrored.Rounded.MenuBook, modifierForCards
-            )
+            Box(modifier = Modifier.clickable { navController.navigate(Screen.LibraryScreen.route) })
+            {
+                CardItem(
+                    "Mi biblioteca", "Hay ${books.books.size} libros",
+                    Icons.AutoMirrored.Rounded.MenuBook, modifierForCards
+                )
+            }
             Spacer(modifier = Modifier.height(30.dp))
             Button(onClick = viewModel::deleteAllBooks) {
                 Text("Eliminar libros")
