@@ -46,6 +46,7 @@ import com.ailenaguino.booktracker.feature_add_book.presentation.components.AddC
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.InputItem
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.SaveFloatingButton
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.TagItem
+import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
@@ -89,39 +90,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                val background by animateColorAsState(targetValue = if(showButton) Color.White else Color.Transparent,
-                    label = ""
-                )
-                val shadow by animateIntAsState(targetValue = if(showButton) 10 else 0, label = "")
-                Box(modifier = Modifier
-                    .offset(x = (-15).dp)
-                    .shadow(shadow.dp, shape = RoundedCornerShape(
-                        topStart = 0.dp,
-                        topEnd = 20.dp,
-                        bottomEnd = 20.dp,
-                        bottomStart = 0.dp
-                    ))
-                    .background(background)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 20.dp,
-                            bottomEnd = 20.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
-                    .size(55.dp)
-                    .clickable { navController.popBackStack() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Rounded.ArrowBack,
-                        "Atrás",
-                        tint = Color.DarkGray,
-                        modifier = Modifier
-                            .size(30.dp)
-                    )
-                }
+                ArrowBack(showButton) { navController.popBackStack() }
                 Box(modifier = Modifier.offset(x = 15.dp)) {
                     SaveFloatingButton(viewModel::onSaveBook)
                 }
