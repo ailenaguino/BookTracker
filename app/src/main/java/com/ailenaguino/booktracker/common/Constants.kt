@@ -9,4 +9,5 @@ object Constants {
     const val READ_NOW = "read_now"
     const val FINISHED = "finished"
     const val GIVE_UP = "give_up"
+    const val PAUSE = "pause"
 }

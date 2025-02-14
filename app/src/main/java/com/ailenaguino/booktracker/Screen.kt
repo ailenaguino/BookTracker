@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     data object AddBookManuallyScreen: Screen("add_book_manually_screen")
     data object LibraryScreen: Screen("library_screen")
     data object ReadLaterScreen: Screen("read_later_screen")
+    data object GaveUpScreen: Screen("gave_up_screen")
 }

@@ -190,6 +190,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     modifier = Modifier
                         .weight(5f)
                         .padding(horizontal = 10.dp)
+                        .clickable { navController.navigate(Screen.GaveUpScreen.route) }
                 ) {
                     CardItem(
                         "Libros que dejaste de leer",
