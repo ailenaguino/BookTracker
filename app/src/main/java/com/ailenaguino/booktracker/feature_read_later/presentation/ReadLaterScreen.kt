@@ -1,4 +1,4 @@
-package com.ailenaguino.booktracker.feature_library.presentation
+package com.ailenaguino.booktracker.feature_read_later.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -44,13 +44,11 @@ import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.Grey
 
-
-@OptIn(
-    ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
-    ExperimentalLayoutApi::class
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class
 )
 @Composable
-fun LibraryScreen(viewModel: LibraryViewModel = hiltViewModel(), navController: NavController) {
+fun ReadLaterScreen(viewModel: ReadLaterViewModel = hiltViewModel(), navController: NavController){
     val listState = rememberLazyListState()
     val searchText by viewModel.searchText.collectAsState()
     val books by viewModel.books.collectAsState()
@@ -73,7 +71,7 @@ fun LibraryScreen(viewModel: LibraryViewModel = hiltViewModel(), navController: 
         }
         item {
             Text(
-                "Mi biblioteca",
+                "Libros para leer más tarde",
                 color = Color.DarkGray,
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,

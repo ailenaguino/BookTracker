@@ -52,9 +52,9 @@ import androidx.navigation.NavController
 import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.BookAddedDialog
+import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
 import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
-import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
 import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
@@ -148,7 +148,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             } else if (books.isLoading) {
                 CircularProgressIndicator()
             } else {
-                ReadLaterItem(books.books) { visible = true }
+                ReadLaterItem(books.books, { visible = true }, {navController.navigate(Screen.ReadLaterScreen.route)})
                 Spacer(modifier = Modifier.height(30.dp))
             }
         }

@@ -6,4 +6,5 @@ interface GetBooksRepository {
     suspend fun getBooks(): List<Book>
     suspend fun getBookById(id: Int): Book?
     suspend fun deleteAllBooks(): Int
+    suspend fun getReadLaterBooks(): List<Book>
 }

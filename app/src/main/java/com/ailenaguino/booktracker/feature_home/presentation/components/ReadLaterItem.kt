@@ -28,18 +28,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import coil3.compose.AsyncImage
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
 import com.ailenaguino.booktracker.ui.theme.Grey
-import com.ailenaguino.booktracker.ui.theme.GreyTransp
 import com.ailenaguino.booktracker.ui.theme.ItemBackground
 import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
 
@@ -97,7 +93,7 @@ fun ReadLaterTitle(title: String) {
 }
 
 @Composable
-fun ReadLaterItem(books: List<Book>, onItemClick: () -> Unit) {
+fun ReadLaterItem(books: List<Book>, onItemClick: () -> Unit, onMoreClick:()->Unit){
     Column {
         ReadLaterTitle("Libros para leer más tarde")
         Spacer(modifier = Modifier.height(10.dp))
@@ -108,6 +104,7 @@ fun ReadLaterItem(books: List<Book>, onItemClick: () -> Unit) {
                     .clip(RoundedCornerShape(8.dp))
                     .background(color = ItemBackground)
                     .padding(horizontal = 10.dp, vertical = 5.dp)
+                    .clickable { onMoreClick() }
             ) {
                 Text(
                     text = "Más",

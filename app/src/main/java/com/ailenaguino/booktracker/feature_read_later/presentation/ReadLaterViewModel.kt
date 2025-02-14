@@ -1,11 +1,11 @@
-package com.ailenaguino.booktracker.feature_library.presentation
+package com.ailenaguino.booktracker.feature_read_later.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ailenaguino.booktracker.common.ListBooksState
 import com.ailenaguino.booktracker.common.Resource
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
-import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBooksUseCase
+import com.ailenaguino.booktracker.feature_home.domain.usecases.GetReadLaterBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class LibraryViewModel @Inject constructor(private val getBooksUseCase: GetBooksUseCase) :
-    ViewModel() {
+class ReadLaterViewModel @Inject constructor(private val getReadLaterBooksUseCase: GetReadLaterBooksUseCase) : ViewModel(){
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
 
@@ -35,7 +34,7 @@ class LibraryViewModel @Inject constructor(private val getBooksUseCase: GetBooks
     }
 
     private fun getBooks() {
-        getBooksUseCase().onEach {
+        getReadLaterBooksUseCase().onEach {
             when (it) {
                 is Resource.Error -> _books.value =
                     ListBooksState(error = it.message ?: "Un error inesperado ocurrió")

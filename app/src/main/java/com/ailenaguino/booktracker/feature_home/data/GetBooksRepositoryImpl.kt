@@ -25,4 +25,8 @@ class GetBooksRepositoryImpl @Inject constructor(private val bookDao: BookDao): 
     override suspend fun deleteAllBooks(): Int {
         return bookDao.deleteAllBooks()
     }
+
+    override suspend fun getReadLaterBooks(): List<Book> {
+        return bookDao.getReadLaterBooks().map { it.toBook() }
+    }
 }

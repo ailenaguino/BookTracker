@@ -50,7 +50,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, BookDatabase::class.java, DATABASE_NAME).build()
+        Room.databaseBuilder(context, BookDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton

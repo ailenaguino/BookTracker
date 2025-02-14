@@ -16,6 +16,7 @@ import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
 import com.ailenaguino.booktracker.feature_library.presentation.LibraryScreen
+import com.ailenaguino.booktracker.feature_read_later.presentation.ReadLaterScreen
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
 import com.ailenaguino.booktracker.ui.theme.BookTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +67,11 @@ class MainActivity : ComponentActivity() {
                             route = Screen.LibraryScreen.route
                         ) {
                             LibraryScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.ReadLaterScreen.route
+                        ) {
+                            ReadLaterScreen(navController = navController)
                         }
                     }
                 }
