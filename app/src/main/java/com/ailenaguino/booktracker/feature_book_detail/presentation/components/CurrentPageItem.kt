@@ -28,24 +28,22 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
-import com.ailenaguino.booktracker.ui.theme.BoneBackground
+import kotlin.math.roundToInt
 
-@Preview
 @Composable
-fun CurrentPageItem() {
-    var sliderPosition by remember { mutableFloatStateOf(10f) }
+fun CurrentPageItem(pages: Float, currentPage: Float) {
+    var sliderPosition by remember { mutableFloatStateOf(currentPage) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(110.dp)
             .offset(x = 50.dp, y = 0.dp)
             .shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(listOf(BoneBackground, Color.LightGray)))
+            .background(Brush.verticalGradient(listOf(Color.White, Color.White)))
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -53,16 +51,16 @@ fun CurrentPageItem() {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                "Pág. 10",
+                "Pág. ${currentPage.roundToInt()}",
                 fontWeight = FontWeight.Bold,
                 color = Color.DarkGray,
-                fontSize = 40.sp
+                fontSize = 30.sp
             )
             Text(
-                " / 100 ",
+                " / ${pages.roundToInt()} ",
                 fontWeight = FontWeight.Light,
                 color = Color.DarkGray,
-                fontSize = 30.sp
+                fontSize = 20.sp
             )
             Icon(Icons.Rounded.Edit, "editar", tint = Color.DarkGray)
         }
@@ -71,18 +69,19 @@ fun CurrentPageItem() {
             sliderPosition,
             onValueChange = { sliderPosition = it },
             colors = SliderDefaults.colors(
-                thumbColor = BlueBackground,
-                activeTrackColor = BlueBackground,
-                inactiveTrackColor = Color.Gray,
+                disabledThumbColor = BlueBackground,
+                disabledActiveTrackColor = BlueBackground,
+                disabledInactiveTrackColor = Color.Gray,
                 activeTickColor = BlueBackground,
-                inactiveTickColor = Color.Gray
+                disabledInactiveTickColor = Color.Gray
             ),
-            steps = 10,
-            valueRange = 0f..100f,
+            enabled = false,
+            steps = 0,
+            valueRange = 0f..pages,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 40.dp, end = 50.dp)
-                .offset(y = (-20).dp)
-        )
+                .offset(y = (-20).dp),
+            )
     }
 }

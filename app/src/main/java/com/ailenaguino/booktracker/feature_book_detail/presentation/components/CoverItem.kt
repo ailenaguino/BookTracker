@@ -1,14 +1,16 @@
 package com.ailenaguino.booktracker.feature_book_detail.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,58 +22,58 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ailenaguino.booktracker.R
+import coil3.compose.AsyncImage
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
 
-@Preview
 @Composable
-fun CoverItem() {
+fun CoverItem(cover:String, title:String, author:String, day:String, date:String) {
 
     Row(
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(230.dp)
             .offset(x = (-50).dp, y = 0.dp)
             .shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(listOf(BlueBackground, Color.Blue)))
+            .background(Brush.verticalGradient(listOf(BlueBackground, BlueBackground)))
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.example_cover),
+        AsyncImage(
+            model = cover,
             contentDescription = "portada",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(150.dp)
+                .height(180.dp)
+                .width(120.dp)
                 .offset(x = 50.dp)
-                .padding(start = 20.dp)
                 .shadow(10.dp, RoundedCornerShape(10.dp))
                 .clip(RoundedCornerShape(10.dp))
+                .border(2.dp, Color.White, RoundedCornerShape(10.dp))
         )
         Column(modifier = Modifier
             .offset(x = 70.dp)
-            .align(Alignment.Top)
-            .padding(top = 50.dp)) {
+            .align(Alignment.CenterVertically)) {
             Text(
-                "Titulo del libro",
+                title,
                 color = Color.White,
-                style = MaterialTheme.typography.titleLarge,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
+                letterSpacing = 1.sp,
+                modifier = Modifier.width(300.dp).padding(end = 70.dp)
             )
             Text(
-                "Autor del libro",
+                author,
                 color = Color.White,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Light,
                 letterSpacing = 1.sp
             )
+            Spacer(modifier = Modifier.height(10.dp))
+            DayItem(day, date)
         }
 
     }

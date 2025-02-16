@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
 import com.ailenaguino.booktracker.ui.sharedComponents.LibraryBookItem
 import com.ailenaguino.booktracker.ui.theme.BlueBackground
@@ -141,7 +142,11 @@ fun LibraryScreen(viewModel: LibraryViewModel = hiltViewModel(), navController: 
                 modifier = Modifier.fillMaxWidth()
             ) {
                 filteredBooks.forEach { book ->
-                    LibraryBookItem(book.title, book.author, book.cover) { }
+                    LibraryBookItem(book.title, book.author, book.cover) {
+                        navController.navigate(
+                            Screen.BookDetailScreen.route + "/${book.id}"
+                        )
+                    }
                 }
             }
         }
