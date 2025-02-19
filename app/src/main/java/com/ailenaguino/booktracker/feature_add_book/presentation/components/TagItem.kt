@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun TagItem(text: String, isSelected: Boolean, onSelection: (String) -> Unit) {
@@ -22,7 +22,7 @@ fun TagItem(text: String, isSelected: Boolean, onSelection: (String) -> Unit) {
             .padding(horizontal = 4.dp)
             .shadow(10.dp, shape = RoundedCornerShape(24.dp))
             .clip(RoundedCornerShape(24.dp))
-            .background(if (isSelected) BlueBackground else Color.White)
+            .background(if (isSelected) Orange else Color.White)
             .clickable { onSelection(text) }
 
     ) {

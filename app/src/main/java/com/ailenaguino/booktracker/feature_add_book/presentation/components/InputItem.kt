@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.LightBlueTransp
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun InputItem(text: String, keyboardType: KeyboardType, value: String, onValueChange: (String) -> Unit) {
@@ -34,7 +34,7 @@ fun InputItem(text: String, keyboardType: KeyboardType, value: String, onValueCh
                 unfocusedLabelColor = Color.DarkGray,
                 unfocusedLeadingIconColor = Color.White.copy(alpha = 0f),
                 focusedBorderColor = Color.White.copy(alpha = 0f),
-                focusedLabelColor = BlueBackground,
+                focusedLabelColor = Orange,
                 focusedTextColor = Color.DarkGray
             )
         )

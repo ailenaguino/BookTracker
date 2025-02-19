@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
 import com.ailenaguino.booktracker.ui.sharedComponents.LibraryBookItem
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.Grey
 
@@ -115,7 +115,7 @@ fun ReadLaterScreen(viewModel: ReadLaterViewModel = hiltViewModel(), navControll
                 Box(modifier = Modifier.fillMaxWidth()) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
-                        color = BlueBackground,
+                        color = Orange,
                         strokeWidth = 5.dp,
                         trackColor = Color.White
                     )

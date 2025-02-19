@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 import kotlin.math.roundToInt
 
 @Composable
@@ -69,10 +69,10 @@ fun CurrentPageItem(pages: Float, currentPage: Float) {
             sliderPosition,
             onValueChange = { sliderPosition = it },
             colors = SliderDefaults.colors(
-                disabledThumbColor = BlueBackground,
-                disabledActiveTrackColor = BlueBackground,
+                disabledThumbColor = Orange,
+                disabledActiveTrackColor = Orange,
                 disabledInactiveTrackColor = Color.Gray,
-                activeTickColor = BlueBackground,
+                activeTickColor = Orange,
                 disabledInactiveTickColor = Color.Gray
             ),
             enabled = false,

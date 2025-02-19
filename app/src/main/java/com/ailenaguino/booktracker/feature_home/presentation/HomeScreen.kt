@@ -54,11 +54,13 @@ import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookI
 import com.ailenaguino.booktracker.feature_home.presentation.components.BookAddedDialog
 import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
+import com.ailenaguino.booktracker.feature_home.presentation.components.NewReadLaterItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
 import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
+import com.ailenaguino.booktracker.ui.theme.Grey
 import com.ailenaguino.booktracker.ui.theme.ItemBackground
 
 val modifierForCards = Modifier
@@ -105,31 +107,31 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     ) {
         item {
             Canvas(modifier = Modifier.fillMaxWidth()) {
-                val cornerRadius = CornerRadius(800f, 250f)
+                val cornerRadius = CornerRadius(400f, 00f)
                 val path = Path().apply {
                     addRoundRect(
                         RoundRect(
                             rect = Rect(
                                 offset = Offset(-30f, 0f),
-                                size = Size(size.width + 60f, 300.dp.toPx()),
+                                size = Size(size.width + 60f, 100.dp.toPx()),
                             ),
                             bottomLeft = cornerRadius,
                             bottomRight = cornerRadius,
                         )
                     )
                 }
-                drawPath(path, color = BlueBackground)
+                drawPath(path, color = Orange)
             }
-            Column(modifier = Modifier.padding(10.dp)) {
+            Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    "¡Hola! :)",
-                    color = BoneBackgroundTransp,
+                    "Hey!",
+                    color = Grey,
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    "Primero, agregue un libro.",
-                    color = BoneBackgroundTransp,
+                    text = if (books.books.isNotEmpty()) "You have ${books.books.size} books added" else "Add a book to start tracking your reading",
+                    color = Grey,
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(30.dp))
@@ -148,18 +150,21 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             } else if (books.isLoading) {
                 CircularProgressIndicator()
             } else {
-                ReadLaterItem(books.books, { visible = true }, {navController.navigate(Screen.ReadLaterScreen.route)})
+                NewReadLaterItem(
+                    books.books,
+                    { visible = true },
+                    { navController.navigate(Screen.ReadLaterScreen.route) })
                 Spacer(modifier = Modifier.height(30.dp))
             }
         }
         item {
-            CardItem("Lista de deseos", "No hay libros.", Icons.Rounded.Favorite, modifierForCards)
+            CardItem("Wishlist", "There are no books", Icons.Rounded.Favorite, modifierForCards)
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
             CardItem(
-                "Calendario de libros",
-                "¿Cuánto has leído este mes?",
+                "Book Calendar",
+                "How much have you read this month?",
                 Icons.Rounded.DateRange,
                 modifierForCards
             )
@@ -180,8 +185,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         .padding(horizontal = 10.dp)
                 ) {
                     CardItem(
-                        "Libros en pausa",
-                        "No hay libros",
+                        "Stopped books",
+                        "There are no books",
                         Icons.Rounded.Pause,
                         modifierForCollections
                     )
@@ -193,8 +198,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         .clickable { navController.navigate(Screen.GaveUpScreen.route) }
                 ) {
                     CardItem(
-                        "Libros que dejaste de leer",
-                        "No hay libros",
+                        "Books you gave up on",
+                        "There are no books",
                         Icons.Rounded.Flag,
                         modifierForCollections
                     )
@@ -206,13 +211,13 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             Box(modifier = Modifier.clickable { navController.navigate(Screen.LibraryScreen.route) })
             {
                 CardItem(
-                    "Mi biblioteca", "Hay ${books.books.size} libros",
+                    "My Library", "There are ${books.books.size} books",
                     Icons.AutoMirrored.Rounded.MenuBook, modifierForCards
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))
             Button(onClick = viewModel::deleteAllBooks) {
-                Text("Eliminar libros")
+                Text("Delete books")
             }
         }
 

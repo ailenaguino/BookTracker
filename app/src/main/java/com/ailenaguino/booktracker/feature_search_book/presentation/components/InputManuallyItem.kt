@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 import com.ailenaguino.booktracker.ui.theme.Grey
 
 @Composable
@@ -36,7 +36,7 @@ fun InputManuallyItem(onItemClick : () -> Unit) {
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .padding(10.dp)
-                .background(BlueBackground, shape = RoundedCornerShape(5.dp))
+                .background(Orange, shape = RoundedCornerShape(5.dp))
                 .size(50.dp, 50.dp)
         ) {
             Icon(

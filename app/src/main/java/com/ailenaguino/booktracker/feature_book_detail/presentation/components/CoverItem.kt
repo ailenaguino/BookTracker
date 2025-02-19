@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun CoverItem(cover:String, title:String, author:String, day:String, date:String) {
@@ -40,7 +40,7 @@ fun CoverItem(cover:String, title:String, author:String, day:String, date:String
             .offset(x = (-50).dp, y = 0.dp)
             .shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(listOf(BlueBackground, BlueBackground)))
+            .background(Brush.verticalGradient(listOf(Orange, Orange)))
     ) {
         AsyncImage(
             model = cover,

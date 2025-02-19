@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun DayItem(day: String, date: String) {
@@ -33,7 +33,7 @@ fun DayItem(day: String, date: String) {
     ) {
         Text(
             "Día $day",
-            color = BlueBackground,
+            color = Orange,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )

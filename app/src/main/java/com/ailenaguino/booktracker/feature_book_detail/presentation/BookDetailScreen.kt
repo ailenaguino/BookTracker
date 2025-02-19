@@ -31,7 +31,7 @@ import androidx.navigation.NavController
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.CoverItem
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.CurrentPageItem
 import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -48,7 +48,7 @@ fun BookDetailScreen(navController: NavController, viewModel: BookDetailViewMode
         Box(modifier = Modifier.fillMaxWidth()) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center),
-                color = BlueBackground,
+                color = Orange,
                 strokeWidth = 5.dp,
                 trackColor = Color.White
             )
@@ -90,7 +90,7 @@ fun BookDetailScreen(navController: NavController, viewModel: BookDetailViewMode
         ) {
             FloatingActionButton(
                 {},
-                containerColor = BlueBackground,
+                containerColor = Orange,
                 contentColor = Color.White,
                 shape = CircleShape
             ) {

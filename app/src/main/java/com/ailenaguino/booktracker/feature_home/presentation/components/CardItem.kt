@@ -14,8 +14,9 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
 import com.ailenaguino.booktracker.ui.theme.Grey
-import com.ailenaguino.booktracker.ui.theme.GreyTransp
+import com.ailenaguino.booktracker.ui.theme.LightBlue
 
 @Composable
 fun CardItem(title: String, subtitle: String, icon: ImageVector, modifier: Modifier) {
@@ -33,8 +34,8 @@ fun CardItem(title: String, subtitle: String, icon: ImageVector, modifier: Modif
         }
         Icon(
             imageVector = icon,
-            contentDescription = "Corazón",
-            tint = GreyTransp,
+            contentDescription = "icon",
+            tint = BoneBackgroundTransp,
             modifier = Modifier
                 .size(50.dp)
                 .align(Alignment.BottomEnd)

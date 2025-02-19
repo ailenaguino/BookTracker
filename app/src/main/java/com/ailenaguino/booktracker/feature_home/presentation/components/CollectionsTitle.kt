@@ -16,8 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
 import com.ailenaguino.booktracker.ui.theme.ItemBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun CollectionsTitle(){
@@ -26,7 +26,7 @@ fun CollectionsTitle(){
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Box(modifier = Modifier.width(200.dp)) {
-            ReadLaterTitle("Colecciones")
+            ReadLaterTitle("Collections")
         }
         Box(
             modifier = Modifier
@@ -36,9 +36,9 @@ fun CollectionsTitle(){
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         ) {
             Text(
-                text = "Más",
+                text = "More",
                 style = MaterialTheme.typography.titleLarge,
-                color = BlueBackground,
+                color = Orange,
                 fontWeight = FontWeight.Medium
             )
         }

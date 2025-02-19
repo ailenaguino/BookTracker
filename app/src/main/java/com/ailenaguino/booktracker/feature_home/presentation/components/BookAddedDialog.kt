@@ -10,17 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.ailenaguino.booktracker.common.BookState
-import com.ailenaguino.booktracker.ui.theme.BlueBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun BookAddedDialog(onDismiss:() -> Unit, bookAdded: BookState){
     AlertDialog(
         containerColor = Color.White,
         icon = {
-            Icon(Icons.Rounded.Book, "Libro Añadido", tint = BlueBackground)
+            Icon(Icons.Rounded.Book, "Libro Añadido", tint = Orange)
         },
         title = {
-            Text(text = "Libro Añadido", color = BlueBackground)
+            Text(text = "Libro Añadido", color = Orange)
         },
         text = {
             Text(
@@ -38,7 +38,7 @@ fun BookAddedDialog(onDismiss:() -> Unit, bookAdded: BookState){
                     onDismiss()
                 }
             ) {
-                Text("Listo", color = BlueBackground)
+                Text("Listo", color = Orange)
             }
         }
     )
