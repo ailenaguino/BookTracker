@@ -5,9 +5,17 @@ object Constants {
     const val API_KEY = "AIzaSyAymRnIHQiIQd7Dyf7y6sXAU9cBeZDrzCk"
     const val PARAM_BOOK_ID = "bookId"
     const val PARAM_BOOK = "book"
-    const val READ_LATER = "read_later"
-    const val READ_NOW = "read_now"
+    const val READ_LATER = "read later"
+    const val READ_NOW = "read now"
     const val FINISHED = "finished"
-    const val GIVE_UP = "give_up"
-    const val PAUSE = "pause"
+    const val GAVE_UP = "gave up"
+    const val PAUSED = "paused"
+    const val PAPER_BOOK = "paper book"
+    const val EBOOK = "ebook"
+    const val AUDIO_BOOK = "audio book"
+    const val PAGE = "page"
+    const val PERCENTAGE = "percentage"
+    const val EPISODE = "episode"
+
+
 }

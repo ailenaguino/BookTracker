@@ -51,7 +51,7 @@ fun SearchBookScreen(
         item {
             Icon(
                 Icons.AutoMirrored.Rounded.ArrowBack,
-                "Atrás",
+                "back",
                 tint = Color.DarkGray,
                 modifier = Modifier
                     .size(30.dp)
@@ -61,7 +61,7 @@ fun SearchBookScreen(
         item {
             Spacer(Modifier.height(15.dp))
             Text(
-                "¡Busca un libro!",
+                "Search any book!",
                 color = GreyTransp,
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold

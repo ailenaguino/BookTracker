@@ -25,7 +25,7 @@ interface BookDao {
     @Query("SELECT * FROM book_table WHERE state = '${Constants.READ_LATER}'")
     suspend fun getReadLaterBooks(): List<BookEntity>
 
-    @Query("SELECT * FROM book_table WHERE state = '${Constants.GIVE_UP}'")
+    @Query("SELECT * FROM book_table WHERE state = '${Constants.GAVE_UP}'")
     suspend fun getGaveUpBooks(): List<BookEntity>
 
 }

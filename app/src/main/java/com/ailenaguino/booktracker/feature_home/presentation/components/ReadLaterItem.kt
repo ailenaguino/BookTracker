@@ -33,7 +33,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
@@ -152,7 +154,7 @@ fun ReadLaterItem(books: List<Book>, onItemClick: () -> Unit, onMoreClick: () ->
 }
 
 @Composable
-fun NewReadLaterItem(books: List<Book>, onItemClick: () -> Unit, onMoreClick: () -> Unit) {
+fun NewReadLaterItem(books: List<Book>, navController: NavController, onEmptyItemClick: () -> Unit, onMoreClick: () -> Unit) {
     Box(
         modifier = Modifier
             .offset(x = (20.dp))
@@ -203,15 +205,19 @@ fun NewReadLaterItem(books: List<Book>, onItemClick: () -> Unit, onMoreClick: ()
             ) {
                 if (books.size > 3) {
                     books.take(4).forEach {
-                        CoverReadLaterItem(onItemClick, it)
+                        CoverReadLaterItem({navController.navigate(
+                            Screen.BookDetailScreen.route + "/${it.id}"
+                        )}, it)
                     }
                 } else {
                     val emptyItems = 4 - books.size
                     books.forEach {
-                        CoverReadLaterItem(onItemClick, it)
+                        CoverReadLaterItem({navController.navigate(
+                            Screen.BookDetailScreen.route + "/${it.id}"
+                        )}, it)
                     }
                     repeat(emptyItems) {
-                        CoverReadLaterItem(onItemClick, null)
+                        CoverReadLaterItem(onEmptyItemClick, null)
                     }
                 }
             }

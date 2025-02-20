@@ -32,11 +32,11 @@ fun SearchBookBar(viewModel: SearchBookViewModel = hiltViewModel()) {
         onSearch = { viewModel.getBooks() },
         active = false,
         onActiveChange = { },
-        placeholder = { Text("Introduzca el título", fontSize = 18.sp, color = GreyTransp) },
-        leadingIcon = { Icon(Icons.Rounded.Search, "Buscar", tint = Orange) },
+        placeholder = { Text("Write the title", fontSize = 18.sp, color = GreyTransp) },
+        leadingIcon = { Icon(Icons.Rounded.Search, "Search", tint = Orange) },
         trailingIcon = {
             if (searchText.isNotEmpty()) {
-                Icon(Icons.Rounded.Close, "Cerrar", tint = GreyTransp, modifier = Modifier.clickable { viewModel.onSearchTextChange("") })
+                Icon(Icons.Rounded.Close, "Remove", tint = GreyTransp, modifier = Modifier.clickable { viewModel.onSearchTextChange("") })
             }
         },
         colors = SearchBarColors(Color.White, Color.White),

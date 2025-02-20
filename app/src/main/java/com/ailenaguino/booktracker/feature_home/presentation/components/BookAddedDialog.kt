@@ -17,14 +17,14 @@ fun BookAddedDialog(onDismiss:() -> Unit, bookAdded: BookState){
     AlertDialog(
         containerColor = Color.White,
         icon = {
-            Icon(Icons.Rounded.Book, "Libro Añadido", tint = Orange)
+            Icon(Icons.Rounded.Book, "Book added", tint = Orange)
         },
         title = {
-            Text(text = "Libro Añadido", color = Orange)
+            Text(text = "Book Added", color = Orange)
         },
         text = {
             Text(
-                text = bookAdded.book!!.title + " por " + bookAdded.book.author,
+                text = bookAdded.book!!.title + " by " + bookAdded.book.author,
                 textAlign = TextAlign.Center,
                 color = Color.DarkGray
             )
@@ -38,7 +38,7 @@ fun BookAddedDialog(onDismiss:() -> Unit, bookAdded: BookState){
                     onDismiss()
                 }
             ) {
-                Text("Listo", color = Orange)
+                Text("Okay", color = Orange)
             }
         }
     )

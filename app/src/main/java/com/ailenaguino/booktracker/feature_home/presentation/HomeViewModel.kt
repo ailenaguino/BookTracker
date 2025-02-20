@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ailenaguino.booktracker.common.BookState
 import com.ailenaguino.booktracker.common.Constants
+import com.ailenaguino.booktracker.common.Constants.GAVE_UP
+import com.ailenaguino.booktracker.common.Constants.READ_LATER
 import com.ailenaguino.booktracker.common.ListBooksState
 import com.ailenaguino.booktracker.common.Resource
+import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.feature_home.domain.GetBooksRepository
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBookByIdUseCase
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBooksUseCase
@@ -32,6 +35,12 @@ class HomeViewModel @Inject constructor(
 
     private val _book = MutableStateFlow(BookState())
     val book: StateFlow<BookState> = _book
+
+    private val _openBookAddedDialog = MutableStateFlow(false)
+    val openBookAddedDialog: StateFlow<Boolean> = _openBookAddedDialog
+
+    private val _wasNotified = MutableStateFlow(false)
+    val wasNotified: StateFlow<Boolean> = _wasNotified
 
     init {
         getBooks()
@@ -71,5 +80,21 @@ class HomeViewModel @Inject constructor(
             val result = repo.deleteAllBooks()
             Log.i("delete books", "$result")
         }
+    }
+
+    fun onWasNotifiedChange(value: Boolean){
+        _wasNotified.value = value
+    }
+
+    fun onOpenBookDialogChange(value: Boolean){
+        _openBookAddedDialog.value = value
+    }
+
+    fun getReadLaterBooks(): List<Book> {
+        return _books.value.books.filter { it.state == READ_LATER }
+    }
+
+    fun getGaveUpBooks(): List<Book> {
+        return _books.value.books.filter { it.state == GAVE_UP }
     }
 }

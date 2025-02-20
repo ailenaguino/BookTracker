@@ -64,7 +64,7 @@ fun CoverItem(cover:String, title:String, author:String, day:String, date:String
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp,
-                maxLines = 3,
+                maxLines = 5,
                 modifier = Modifier.width(300.dp).padding(end = 70.dp)
             )
             Text(
@@ -75,8 +75,6 @@ fun CoverItem(cover:String, title:String, author:String, day:String, date:String
                 fontWeight = FontWeight.Light,
                 letterSpacing = 1.sp
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            DayItem(day, date)
         }
 
     }

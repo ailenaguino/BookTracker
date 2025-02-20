@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -34,20 +35,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ailenaguino.booktracker.Screen
+import com.ailenaguino.booktracker.common.Constants.AUDIO_BOOK
+import com.ailenaguino.booktracker.common.Constants.EBOOK
+import com.ailenaguino.booktracker.common.Constants.EPISODE
+import com.ailenaguino.booktracker.common.Constants.FINISHED
+import com.ailenaguino.booktracker.common.Constants.GAVE_UP
+import com.ailenaguino.booktracker.common.Constants.PAGE
+import com.ailenaguino.booktracker.common.Constants.PAPER_BOOK
+import com.ailenaguino.booktracker.common.Constants.PERCENTAGE
+import com.ailenaguino.booktracker.common.Constants.READ_LATER
+import com.ailenaguino.booktracker.common.Constants.READ_NOW
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.AddCover
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.InputItem
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.SaveFloatingButton
 import com.ailenaguino.booktracker.feature_add_book.presentation.components.TagItem
 import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
+import com.ailenaguino.booktracker.ui.theme.Grey
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
@@ -122,42 +137,6 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
             InputItem("Author", KeyboardType.Text, author, viewModel::onAuthorChange)
         }
         item {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                "What type of book is it?",
-                fontSize = 16.sp,
-                color = Color.DarkGray,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
-            FlowRow(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                val typeBookOptions = listOf("paper book", "ebook", "audio book")
-                typeBookOptions.forEach { text ->
-                    TagItem(text, text == typeBook, viewModel::onTypeBookChange)
-                }
-            }
-        }
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                "How do you like to register your progress?",
-                fontSize = 16.sp,
-                color = Color.DarkGray,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
-            FlowRow(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                val registerProgressOptions = listOf("page", "percentage", "episode")
-                registerProgressOptions.forEach { text ->
-                    TagItem(text, text == registerProgress, viewModel::onRegisterProgressChange)
-                }
-            }
-        }
-        item {
             InputItem(
                 "Total pages",
                 KeyboardType.Number,
@@ -168,17 +147,56 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
         item {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
+                "What type of book is it?",
+                style = MaterialTheme.typography.headlineSmall,
+                color = Orange,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(vertical = 16.dp).fillMaxWidth()
+            )
+            FlowRow(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val typeBookOptions = listOf(PAPER_BOOK, EBOOK, AUDIO_BOOK)
+                typeBookOptions.forEach { text ->
+                    TagItem(text, text == typeBook, viewModel::onTypeBookChange)
+                }
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                "How do you like to register your progress?",
+                style = MaterialTheme.typography.headlineSmall,
+                color = Orange,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(vertical = 16.dp).fillMaxWidth()
+            )
+            FlowRow(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val registerProgressOptions = listOf(PAGE, PERCENTAGE, EPISODE)
+                registerProgressOptions.forEach { text ->
+                    TagItem(text, text == registerProgress, viewModel::onRegisterProgressChange)
+                }
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
                 "State",
-                fontSize = 16.sp,
-                color = Color.DarkGray,
-                modifier = Modifier.padding(vertical = 16.dp)
+                style = MaterialTheme.typography.headlineSmall,
+                color = Orange,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(vertical = 16.dp).fillMaxWidth()
             )
             FlowRow(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 val progressOptions =
-                    listOf("read later", "read now", "I've already finished it", "I gave up on it")
+                    listOf(READ_LATER, READ_NOW, FINISHED, GAVE_UP)
                 progressOptions.forEach { text ->
                     TagItem(text, text == progress, viewModel::onProgressChange)
                 }

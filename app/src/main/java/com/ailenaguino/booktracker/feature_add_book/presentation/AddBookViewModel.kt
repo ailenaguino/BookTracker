@@ -7,6 +7,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ailenaguino.booktracker.common.Constants
+import com.ailenaguino.booktracker.common.Constants.PAGE
+import com.ailenaguino.booktracker.common.Constants.PAPER_BOOK
+import com.ailenaguino.booktracker.common.Constants.READ_LATER
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
 import com.ailenaguino.booktracker.feature_add_book.domain.usecases.SaveBookUseCase
 import com.ailenaguino.booktracker.feature_search_book.domain.models.GoogleBook
@@ -31,13 +34,13 @@ class AddBookViewModel @Inject constructor(
     private val _totalPages = mutableStateOf("")
     val totalPages = _totalPages
 
-    private val _typeBook = mutableStateOf("paper book")
+    private val _typeBook = mutableStateOf(PAPER_BOOK)
     val typeBook = _typeBook
 
-    private val _registerProgress = mutableStateOf("page")
+    private val _registerProgress = mutableStateOf(PAGE)
     val registerProgress = _registerProgress
 
-    private val _progress = mutableStateOf("read later")
+    private val _progress = mutableStateOf(READ_LATER)
     val progress = _progress
 
     private val _errorMessage = mutableStateOf("")
@@ -87,11 +90,11 @@ class AddBookViewModel @Inject constructor(
 
     fun onSaveBook() {
         if (title.value.isEmpty()) {
-            errorMessage.value = "Por favor, ingrese un título"
+            errorMessage.value = "Please, write a title"
         } else if (author.value.isEmpty()) {
-            errorMessage.value = "Por favor, ingrese un autor"
+            errorMessage.value = "Please, write an author"
         } else if (totalPages.value.isEmpty()) {
-            errorMessage.value = "Por favor, ingrese un número de páginas"
+            errorMessage.value = "Please, write the total pages"
         } else {
             val book = Book(
                 null,
@@ -106,9 +109,9 @@ class AddBookViewModel @Inject constructor(
             viewModelScope.launch {
                 val result = saveBookUseCase(book)
                 if (result == null) {
-                    errorMessage.value = "Error al guardar el libro"
+                    errorMessage.value = "An error occurred while adding the book"
                 } else {
-                    errorMessage.value = "Libro añadido con éxito"
+                    errorMessage.value = "Book added successfully"
                     _result.value = result.toInt()
                 }
             }

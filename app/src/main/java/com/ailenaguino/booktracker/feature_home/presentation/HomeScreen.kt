@@ -81,8 +81,8 @@ val modifierForCollections = Modifier
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     var visible by remember { mutableStateOf(false) }
-    var openBookAddedDialog by remember { mutableStateOf(false) }
-    var wasNotified by remember { mutableStateOf(false) }
+    val openBookAddedDialog by viewModel.openBookAddedDialog.collectAsState()
+    val wasNotified by viewModel.wasNotified.collectAsState()
     val books by viewModel.books.collectAsState()
     val bookAdded by viewModel.book.collectAsState()
 
@@ -90,12 +90,12 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
         AddBookDialog(navController) { visible = false }
     }
 
-    if (bookAdded.book != null && !wasNotified) openBookAddedDialog = true
+    if (bookAdded.book != null && !wasNotified) viewModel.onOpenBookDialogChange(true)
 
     AnimatedVisibility(openBookAddedDialog) {
         BookAddedDialog({
-            openBookAddedDialog = false
-            wasNotified = true
+            viewModel.onOpenBookDialogChange(false)
+            viewModel.onWasNotifiedChange(true)
         }, bookAdded)
     }
 
@@ -151,7 +151,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 CircularProgressIndicator()
             } else {
                 NewReadLaterItem(
-                    books.books,
+                    viewModel.getReadLaterBooks(),
+                    navController,
                     { visible = true },
                     { navController.navigate(Screen.ReadLaterScreen.route) })
                 Spacer(modifier = Modifier.height(30.dp))
@@ -195,7 +196,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 ) {
                     CardItem(
                         "Books you gave up on",
-                        "There are no books",
+                        "There are ${viewModel.getGaveUpBooks().size} books",
                         Icons.Rounded.Flag,
                         modifierForCollections
                     )
