@@ -27,7 +27,8 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.ailenaguino.booktracker.ui.theme.Grey
+import com.ailenaguino.booktracker.ui.theme.GreyTransp
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
 fun SearchBookItem(title: String, author: String, cover: String, onClick:()->Unit) {
@@ -50,7 +51,7 @@ fun SearchBookItem(title: String, author: String, cover: String, onClick:()->Uni
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 18.sp,
-                color = Grey,
+                color = Orange,
                 maxLines = 3,
                 modifier = Modifier
                     .padding(start = 80.dp)
@@ -60,7 +61,7 @@ fun SearchBookItem(title: String, author: String, cover: String, onClick:()->Uni
                 author,
                 fontWeight = FontWeight.Light,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Grey,
+                color = GreyTransp,
                 modifier = Modifier
                     .padding(start = 90.dp)
             )

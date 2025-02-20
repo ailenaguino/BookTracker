@@ -1,8 +1,6 @@
 package com.ailenaguino.booktracker.feature_search_book.presentation.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
@@ -16,12 +14,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookViewModel
-import com.ailenaguino.booktracker.ui.theme.Grey
+import com.ailenaguino.booktracker.ui.theme.GreyTransp
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,11 +32,11 @@ fun SearchBookBar(viewModel: SearchBookViewModel = hiltViewModel()) {
         onSearch = { viewModel.getBooks() },
         active = false,
         onActiveChange = { },
-        placeholder = { Text("Introduzca el título", fontSize = 18.sp, color = Grey) },
-        leadingIcon = { Icon(Icons.Rounded.Search, "Buscar", tint = Grey) },
+        placeholder = { Text("Introduzca el título", fontSize = 18.sp, color = GreyTransp) },
+        leadingIcon = { Icon(Icons.Rounded.Search, "Buscar", tint = Orange) },
         trailingIcon = {
             if (searchText.isNotEmpty()) {
-                Icon(Icons.Rounded.Close, "Cerrar", tint = Grey, modifier = Modifier.clickable { viewModel.onSearchTextChange("") })
+                Icon(Icons.Rounded.Close, "Cerrar", tint = GreyTransp, modifier = Modifier.clickable { viewModel.onSearchTextChange("") })
             }
         },
         colors = SearchBarColors(Color.White, Color.White),

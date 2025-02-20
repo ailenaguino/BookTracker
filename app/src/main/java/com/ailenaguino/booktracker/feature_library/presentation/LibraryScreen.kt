@@ -74,13 +74,13 @@ fun LibraryScreen(viewModel: LibraryViewModel = hiltViewModel(), navController: 
         }
         item {
             Text(
-                "Mi biblioteca",
+                "My Library",
                 color = Color.DarkGray,
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
-            Text("Tienes ${books.books.size} libros", color = Color.DarkGray)
+            Text("You have ${books.books.size} books", color = Color.DarkGray)
             Spacer(modifier = Modifier.size(20.dp))
         }
         item {
@@ -92,13 +92,13 @@ fun LibraryScreen(viewModel: LibraryViewModel = hiltViewModel(), navController: 
                         onSearch = { viewModel.searchBook(it) },
                         expanded = false,
                         onExpandedChange = {},
-                        placeholder = { Text("Busca algún libro", fontSize = 18.sp) },
-                        leadingIcon = { Icon(Icons.Rounded.Search, "Buscar", tint = Grey) },
+                        placeholder = { Text("Search any book", fontSize = 18.sp) },
+                        leadingIcon = { Icon(Icons.Rounded.Search, "Search", tint = Orange) },
                         trailingIcon = {
                             if (searchText.isNotEmpty()) {
                                 Icon(
                                     Icons.Rounded.Close,
-                                    "Cerrar",
+                                    "Close",
                                     tint = Grey,
                                     modifier = Modifier.clickable { viewModel.onSearchTextChange("") })
                             }

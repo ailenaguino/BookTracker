@@ -98,7 +98,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
         }
         item {
             Text(
-                "Añadir un libro",
+                "Add a book",
                 color = Color.DarkGray,
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,
@@ -116,15 +116,15 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
             }
         }
         item {
-            InputItem("Título", KeyboardType.Text, title, viewModel::onTitleChange)
+                InputItem("Title", KeyboardType.Text, title, viewModel::onTitleChange)
         }
         item {
-            InputItem("Autor", KeyboardType.Text, author, viewModel::onAuthorChange)
+            InputItem("Author", KeyboardType.Text, author, viewModel::onAuthorChange)
         }
         item {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                "¿Qué tipo de libro lees?",
+                "What type of book is it?",
                 fontSize = 16.sp,
                 color = Color.DarkGray,
                 modifier = Modifier.padding(vertical = 16.dp)
@@ -133,7 +133,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                val typeBookOptions = listOf("libro de papel", "libro electrónico", "audio libro")
+                val typeBookOptions = listOf("paper book", "ebook", "audio book")
                 typeBookOptions.forEach { text ->
                     TagItem(text, text == typeBook, viewModel::onTypeBookChange)
                 }
@@ -142,7 +142,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
         item {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                "¿Cómo le gustaría registrar su progreso?",
+                "How do you like to register your progress?",
                 fontSize = 16.sp,
                 color = Color.DarkGray,
                 modifier = Modifier.padding(vertical = 16.dp)
@@ -151,7 +151,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                val registerProgressOptions = listOf("página", "porcentaje", "episodio")
+                val registerProgressOptions = listOf("page", "percentage", "episode")
                 registerProgressOptions.forEach { text ->
                     TagItem(text, text == registerProgress, viewModel::onRegisterProgressChange)
                 }
@@ -159,7 +159,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
         }
         item {
             InputItem(
-                "Total de páginas",
+                "Total pages",
                 KeyboardType.Number,
                 totalPages,
                 viewModel::onTotalPagesChange
@@ -168,7 +168,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
         item {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                "Estado",
+                "State",
                 fontSize = 16.sp,
                 color = Color.DarkGray,
                 modifier = Modifier.padding(vertical = 16.dp)
@@ -178,7 +178,7 @@ fun AddBookScreen(navController: NavController, viewModel: AddBookViewModel = hi
                 modifier = Modifier.fillMaxWidth()
             ) {
                 val progressOptions =
-                    listOf("leer más tarde", "leer ahora", "lo he leído todo", "me dí por vencido")
+                    listOf("read later", "read now", "I've already finished it", "I gave up on it")
                 progressOptions.forEach { text ->
                     TagItem(text, text == progress, viewModel::onProgressChange)
                 }

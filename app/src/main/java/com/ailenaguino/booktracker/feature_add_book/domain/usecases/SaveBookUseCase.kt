@@ -14,10 +14,10 @@ class SaveBookUseCase @Inject constructor(private val repository: AddBookReposit
             if (cover == "null") cover =
                 "https://static.wikia.nocookie.net/gijoe/images/b/bf/Default_book_cover.jpg/revision/latest?cb=20240508080922"
             when(state){
-                "leer más tarde" -> state = READ_LATER
-                "leer ahora" -> state = READ_NOW
-                "lo he leído todo" -> state = FINISHED
-                "me dí por vencido" -> state = GIVE_UP
+                "read later" -> state = READ_LATER
+                "read now" -> state = READ_NOW
+                "I've already finished it" -> state = FINISHED
+                "I gave up on it" -> state = GIVE_UP
             }
         }
         return repository.addBook(book)

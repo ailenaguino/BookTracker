@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 
 @Composable
@@ -44,7 +45,7 @@ fun LibraryBookItem(title: String, author: String, cover: String, onClick: () ->
         ) {
             Text(
                 title,
-                color = Color.DarkGray,
+                color = Orange,
                 style = MaterialTheme.typography.labelLarge,
                 maxLines = 2,
                 textAlign = TextAlign.Center

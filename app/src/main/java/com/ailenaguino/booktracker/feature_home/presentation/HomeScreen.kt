@@ -171,10 +171,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             Spacer(modifier = Modifier.height(30.dp))
         }
         item {
-            CollectionsTitle()
-            Spacer(modifier = Modifier.height(30.dp))
-        }
-        item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

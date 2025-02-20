@@ -31,13 +31,13 @@ class AddBookViewModel @Inject constructor(
     private val _totalPages = mutableStateOf("")
     val totalPages = _totalPages
 
-    private val _typeBook = mutableStateOf("libro de papel")
+    private val _typeBook = mutableStateOf("paper book")
     val typeBook = _typeBook
 
-    private val _registerProgress = mutableStateOf("página")
+    private val _registerProgress = mutableStateOf("page")
     val registerProgress = _registerProgress
 
-    private val _progress = mutableStateOf("leer más tarde")
+    private val _progress = mutableStateOf("read later")
     val progress = _progress
 
     private val _errorMessage = mutableStateOf("")

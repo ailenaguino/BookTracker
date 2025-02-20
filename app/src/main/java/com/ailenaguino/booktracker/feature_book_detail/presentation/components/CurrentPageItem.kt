@@ -51,7 +51,7 @@ fun CurrentPageItem(pages: Float, currentPage: Float) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                "Pág. ${currentPage.roundToInt()}",
+                "Page ${currentPage.roundToInt()}",
                 fontWeight = FontWeight.Bold,
                 color = Color.DarkGray,
                 fontSize = 30.sp
@@ -62,7 +62,7 @@ fun CurrentPageItem(pages: Float, currentPage: Float) {
                 color = Color.DarkGray,
                 fontSize = 20.sp
             )
-            Icon(Icons.Rounded.Edit, "editar", tint = Color.DarkGray)
+            Icon(Icons.Rounded.Edit, "edit", tint = Color.DarkGray)
         }
 
         Slider(

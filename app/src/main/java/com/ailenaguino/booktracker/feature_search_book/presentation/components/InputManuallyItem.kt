@@ -47,7 +47,7 @@ fun InputManuallyItem(onItemClick : () -> Unit) {
             )
         }
         Column(modifier = Modifier.padding(10.dp)) {
-            Text("¿No tenemos el libro que buscas?", color = Grey, fontSize = 12.sp)
+            Text("¿No tenemos el libro que buscas?", color = Orange, fontSize = 12.sp)
             Spacer(modifier = Modifier.height(3.dp))
             Text("Ingréselo usted mismo", color = Color.Black, fontSize = 18.sp)
         }

@@ -32,11 +32,11 @@ fun DayItem(day: String, date: String) {
             .padding(10.dp)
     ) {
         Text(
-            "Día $day",
+            "Day $day",
             color = Orange,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
-        Text("Desde $date", style = MaterialTheme.typography.labelMedium, color = Color.DarkGray)
+        Text("Since $date", style = MaterialTheme.typography.labelMedium, color = Color.DarkGray)
     }
 }
