@@ -1,5 +1,7 @@
 package com.ailenaguino.booktracker.feature_book_detail.presentation
 
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,6 +24,15 @@ class BookDetailViewModel @Inject constructor(
     private val _book = MutableStateFlow(BookState())
     val book: StateFlow<BookState> = _book
 
+    private val _hours = mutableIntStateOf(0)
+    val hours = _hours
+
+    private val _minutes = mutableIntStateOf(0)
+    val minutes = _minutes
+
+    private val _pagesRead = mutableIntStateOf(0)
+    val pagesRead = _pagesRead
+
     init {
         savedStateHandle.get<String>(Constants.PARAM_BOOK_ID)
             ?.let { bookId -> getBook(bookId.toInt()) }
@@ -36,5 +47,17 @@ class BookDetailViewModel @Inject constructor(
                 is Resource.Success -> _book.value = BookState(book = it.data)
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun onHoursChange(value: Int){
+        _hours.intValue = value
+    }
+
+    fun onMinutesChange(value: Int){
+        _minutes.intValue = value
+    }
+
+    fun onPagesReadChange(value: Int){
+        _pagesRead.intValue = value
     }
 }

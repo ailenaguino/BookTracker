@@ -53,15 +53,12 @@ import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.BookAddedDialog
 import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
-import com.ailenaguino.booktracker.feature_home.presentation.components.CollectionsTitle
 import com.ailenaguino.booktracker.feature_home.presentation.components.NewReadLaterItem
-import com.ailenaguino.booktracker.feature_home.presentation.components.ReadLaterItem
 import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
-import com.ailenaguino.booktracker.ui.theme.Orange
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
-import com.ailenaguino.booktracker.ui.theme.BoneBackgroundTransp
 import com.ailenaguino.booktracker.ui.theme.Grey
 import com.ailenaguino.booktracker.ui.theme.ItemBackground
+import com.ailenaguino.booktracker.ui.theme.Orange
 
 val modifierForCards = Modifier
     .shadow(10.dp, RoundedCornerShape(10.dp))

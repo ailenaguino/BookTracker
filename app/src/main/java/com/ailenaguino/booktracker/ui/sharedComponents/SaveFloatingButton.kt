@@ -1,4 +1,4 @@
-package com.ailenaguino.booktracker.feature_add_book.presentation.components
+package com.ailenaguino.booktracker.ui.sharedComponents
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
