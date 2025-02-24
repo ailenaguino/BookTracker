@@ -1,6 +1,7 @@
 package com.ailenaguino.booktracker.feature_book_detail.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,7 +35,7 @@ import com.ailenaguino.booktracker.ui.theme.Orange
 import kotlin.math.roundToInt
 
 @Composable
-fun CurrentPageItem(pages: Float, currentPage: Float) {
+fun CurrentPageItem(pages: Float, currentPage: Float, onClick: () -> Unit) {
     var sliderPosition by remember { mutableFloatStateOf(currentPage) }
     Column(
         modifier = Modifier
@@ -44,6 +45,7 @@ fun CurrentPageItem(pages: Float, currentPage: Float) {
             .shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
             .background(Brush.verticalGradient(listOf(Color.White, Color.White)))
+            .clickable { onClick() }
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

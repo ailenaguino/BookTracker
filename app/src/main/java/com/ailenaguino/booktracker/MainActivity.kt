@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.feature_add_book.presentation.AddBookScreen
 import com.ailenaguino.booktracker.feature_book_detail.presentation.BookDetailScreen
+import com.ailenaguino.booktracker.feature_book_detail.presentation.SaveLectureScreen
 import com.ailenaguino.booktracker.feature_gave_up.presentation.GaveUpScreen
 import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
 import com.ailenaguino.booktracker.feature_library.presentation.LibraryScreen
@@ -84,6 +85,11 @@ class MainActivity : ComponentActivity() {
                             route = Screen.BookDetailScreen.route + "/{${Constants.PARAM_BOOK_ID}}"
                         ){
                             BookDetailScreen(navController)
+                        }
+                        composable(
+                            route = Screen.SaveLectureScreen.route + "/{${Constants.PARAM_BOOK_ID}}"
+                        ){
+                            SaveLectureScreen(navController = navController)
                         }
                     }
                 }

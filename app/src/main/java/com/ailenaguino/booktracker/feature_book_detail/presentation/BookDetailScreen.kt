@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.CoverItem
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.CurrentPageItem
 import com.ailenaguino.booktracker.ui.sharedComponents.ArrowBack
@@ -100,7 +101,7 @@ fun BookDetailScreen(
                 Spacer(modifier = Modifier.padding(top = 40.dp))
             }
             item {
-                CurrentPageItem(book.book!!.totalPages.toFloat(), 100f)
+                CurrentPageItem(book.book!!.totalPages.toFloat(), 100f) {navController.navigate(Screen.SaveLectureScreen.route + "/${book.book!!.id}")}
             }
             item {
                 Spacer(modifier = Modifier.padding(top = 40.dp))

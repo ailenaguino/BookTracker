@@ -33,6 +33,9 @@ class BookDetailViewModel @Inject constructor(
     private val _pagesRead = mutableIntStateOf(0)
     val pagesRead = _pagesRead
 
+    private val _state = mutableStateOf("")
+    val state = _state
+
     init {
         savedStateHandle.get<String>(Constants.PARAM_BOOK_ID)
             ?.let { bookId -> getBook(bookId.toInt()) }
@@ -59,5 +62,9 @@ class BookDetailViewModel @Inject constructor(
 
     fun onPagesReadChange(value: Int){
         _pagesRead.intValue = value
+    }
+
+    fun onStateChange(value: String){
+        _state.value = value
     }
 }
