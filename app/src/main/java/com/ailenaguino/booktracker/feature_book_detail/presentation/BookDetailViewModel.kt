@@ -67,4 +67,5 @@ class BookDetailViewModel @Inject constructor(
     fun onStateChange(value: String){
         _state.value = value
     }
+    //comment
 }
