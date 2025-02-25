@@ -31,7 +31,7 @@ import com.ailenaguino.booktracker.ui.theme.Orange
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReadingTimeModal(viewModel: BookDetailViewModel = hiltViewModel(), onDiscard:()->Unit) {
+fun ReadingTimeModal(viewModel: BookDetailViewModel = hiltViewModel(), onDiscard: () -> Unit) {
     val hours by viewModel.hours
     val minutes by viewModel.minutes
     ModalBottomSheet(onDismissRequest = { onDiscard() }, containerColor = Color.White) {
@@ -51,11 +51,15 @@ fun ReadingTimeModal(viewModel: BookDetailViewModel = hiltViewModel(), onDiscard
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TimeTextField("Hours", hours.toString()) { viewModel.onHoursChange(it.toInt()) }
-                TimeTextField("Minutes", minutes.toString()) {viewModel.onMinutesChange(it.toInt())}
+                TimeTextField("Hours", hours) { viewModel.onHoursChange(it) }
+                TimeTextField("Minutes", minutes) { viewModel.onMinutesChange(it) }
             }
             OutlinedButton(
-                {},
+                {
+                    onDiscard()
+                    viewModel.hoursSaved.intValue = if (hours.isNotBlank()) hours.toInt() else 0
+                    viewModel.minutesSaved.intValue = if (minutes.isNotBlank()) minutes.toInt() else 0
+                },
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .fillMaxWidth()

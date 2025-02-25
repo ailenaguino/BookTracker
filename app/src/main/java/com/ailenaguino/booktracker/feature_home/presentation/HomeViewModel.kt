@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
         getBooksUseCase().onEach {
             when (it) {
                 is Resource.Error -> _books.value =
-                    ListBooksState(error = it.message ?: "Un error inesperado ocurrió")
+                    ListBooksState(error = it.message ?: "An unexpected error occurred")
 
                 is Resource.Loading -> _books.value = ListBooksState(isLoading = true)
                 is Resource.Success -> _books.value = ListBooksState(books = it.data ?: emptyList())
@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
         getBookByIdUseCase(id).onEach {
             when(it){
                 is Resource.Error -> _book.value =
-                    BookState(error = it.message ?: "Un error inesperado ocurrió")
+                    BookState(error = it.message ?: "An unexpected error occurred")
                 is Resource.Loading -> _book.value = BookState(isLoading = true)
                 is Resource.Success -> _book.value = BookState(book = it.data)
             }

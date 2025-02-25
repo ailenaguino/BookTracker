@@ -34,11 +34,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.PagesReadModal
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.ReadingTimeModal
@@ -54,7 +52,7 @@ import java.util.Calendar
 @Composable
 fun SaveLectureScreen(
     viewModel: BookDetailViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController,
 ) {
     val listState = rememberLazyListState()
     var showReadingTimeModal by remember { mutableStateOf(false) }
@@ -88,7 +86,9 @@ fun SaveLectureScreen(
         StateModal { showStateModal = false }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(BoneBackground)){
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(BoneBackground)) {
         if (book.isLoading) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 CircularProgressIndicator(
@@ -112,7 +112,7 @@ fun SaveLectureScreen(
     }
 
 
-    if(book.book != null) {
+    if (book.book != null) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -129,7 +129,7 @@ fun SaveLectureScreen(
                 ) {
                     ArrowBack(showButton) { navController.popBackStack() }
                     Box(modifier = Modifier.offset(x = 15.dp)) {
-                        SaveFloatingButton({}/*viewModel::onSaveBook*/)
+                        SaveFloatingButton(viewModel::saveReadingSession)
                     }
                 }
             }
@@ -141,11 +141,11 @@ fun SaveLectureScreen(
                     fontSize = 32.sp,
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
-                Text(getCurrentDay(), color = Color.DarkGray)
+                Text(getCurrentDay(viewModel), color = Color.DarkGray)
                 Spacer(modifier = Modifier.size(20.dp))
             }
             item {
-                SaveLectureCard(Icons.Rounded.Timer, "00:00:00", "tiempo de lectura", "") {
+                SaveLectureCard(Icons.Rounded.Timer, "00:00:00", "reading time", "") {
                     showReadingTimeModal = true
                     showPagesReadModal = false
                     showStateModal = false
@@ -155,7 +155,7 @@ fun SaveLectureScreen(
                 SaveLectureCard(
                     Icons.Rounded.Bookmark,
                     "Page 0",
-                    "pages",
+                    "current page",
                     "/ " + book.book!!.totalPages
                 ) {
                     showPagesReadModal = true
@@ -181,16 +181,18 @@ fun SaveLectureScreen(
     }
 }
 
-fun getCurrentDay(): String {
+fun getCurrentDay(viewModel: BookDetailViewModel): String {
     val calendar = Calendar.getInstance()
     val minute = if (calendar.get(Calendar.MINUTE) < 10) {
         "0" + calendar.get(Calendar.MINUTE)
     } else {
         calendar.get(Calendar.MINUTE)
     }
-    return "${calendar.get(Calendar.DAY_OF_MONTH)}/" +
+    val date = "${calendar.get(Calendar.DAY_OF_MONTH)}/" +
             "${calendar.get(Calendar.MONTH)}/" +
             "${calendar.get(Calendar.YEAR)} | " +
             "${calendar.get(Calendar.HOUR_OF_DAY)}:" +
             "$minute"
+    viewModel.onDateChange(date)
+    return date
 }

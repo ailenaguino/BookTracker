@@ -7,6 +7,8 @@ import com.ailenaguino.booktracker.feature_add_book.data.AddBookRepositoryImpl
 import com.ailenaguino.booktracker.feature_add_book.data.database.BookDao
 import com.ailenaguino.booktracker.feature_add_book.data.database.BookDatabase
 import com.ailenaguino.booktracker.feature_add_book.domain.AddBookRepository
+import com.ailenaguino.booktracker.feature_book_detail.data.ReadingSessionRepositoryImpl
+import com.ailenaguino.booktracker.feature_book_detail.domain.ReadingSessionRepository
 import com.ailenaguino.booktracker.feature_home.data.GetBooksRepositoryImpl
 import com.ailenaguino.booktracker.feature_home.domain.GetBooksRepository
 import com.ailenaguino.booktracker.feature_search_book.data.SearchBookProviderImpl
@@ -64,5 +66,10 @@ object AppModule {
     @Provides
     fun provideGetBooksRepository(bookDao: BookDao): GetBooksRepository {
         return GetBooksRepositoryImpl(bookDao)
+    }
+
+    @Provides
+    fun provideReadingSessionRepository(bookDao: BookDao): ReadingSessionRepository {
+        return ReadingSessionRepositoryImpl(bookDao)
     }
 }

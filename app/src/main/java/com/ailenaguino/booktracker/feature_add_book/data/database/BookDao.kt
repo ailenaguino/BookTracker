@@ -38,4 +38,7 @@ interface BookDao {
     @Query("SELECT * FROM session_table WHERE book_id = :bookId")
     suspend fun getSessionsByBookId(bookId: Int): List<SessionEntity>
 
+    @Query("UPDATE book_table SET state = :state WHERE id = :bookId")
+    suspend fun updateBookState(bookId: Int, state: String)
+
 }

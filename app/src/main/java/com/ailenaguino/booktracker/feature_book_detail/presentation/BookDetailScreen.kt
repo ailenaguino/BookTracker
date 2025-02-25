@@ -53,6 +53,7 @@ fun BookDetailScreen(
 ) {
     val listState = rememberLazyListState()
     val book by viewModel.book.collectAsState()
+    val readingSessions by viewModel.readingSessions.collectAsState()
     val showButton by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex > 0
@@ -101,7 +102,8 @@ fun BookDetailScreen(
                 Spacer(modifier = Modifier.padding(top = 40.dp))
             }
             item {
-                CurrentPageItem(book.book!!.totalPages.toFloat(), 100f) {navController.navigate(Screen.SaveLectureScreen.route + "/${book.book!!.id}")}
+                val currentPage: Int = if (readingSessions.readingSession.isNullOrEmpty()) 0 else readingSessions.readingSession!!.last().currentPage
+                CurrentPageItem(book.book!!.totalPages.toFloat(), currentPage.toFloat()) {navController.navigate(Screen.SaveLectureScreen.route + "/${book.book!!.id}")}
             }
             item {
                 Spacer(modifier = Modifier.padding(top = 40.dp))
@@ -129,6 +131,37 @@ fun BookDetailScreen(
                         color = Grey,
                         style = MaterialTheme.typography.titleSmall
                     )
+                    if(readingSessions.isLoading){
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(Alignment.Center),
+                                color = Orange,
+                                strokeWidth = 5.dp,
+                                trackColor = Color.White
+                            )
+                        }
+                    }
+                    if(readingSessions.error.isNotBlank()){
+                        Text(
+                            text = book.error,
+                            color = Color.Red,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                        )
+                    }
+                    if (!readingSessions.readingSession.isNullOrEmpty()){
+                        readingSessions.readingSession.let {
+                            it?.forEach{ session ->
+                                Text(
+                                    "Date: " + session.date + ". Reading time: " + session.readingTime,
+                                    color = Grey,
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
