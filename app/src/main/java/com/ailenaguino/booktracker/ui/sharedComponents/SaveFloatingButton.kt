@@ -16,7 +16,7 @@ fun SaveFloatingButton(onClick:()->Unit){
     ExtendedFloatingActionButton(
         onClick = { onClick() },
         icon = { Icon(Icons.Rounded.Check, "Save", tint = Orange) },
-        text = { Text(text = "Guardar", color = Color.DarkGray) },
+        text = { Text(text = "Save", color = Color.DarkGray) },
         containerColor = Color.White,
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 20.dp)
     )

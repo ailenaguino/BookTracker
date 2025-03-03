@@ -102,8 +102,12 @@ fun BookDetailScreen(
                 Spacer(modifier = Modifier.padding(top = 40.dp))
             }
             item {
-                val currentPage: Int = if (readingSessions.readingSession.isNullOrEmpty()) 0 else readingSessions.readingSession!!.last().currentPage
-                CurrentPageItem(book.book!!.totalPages.toFloat(), currentPage.toFloat()) {navController.navigate(Screen.SaveLectureScreen.route + "/${book.book!!.id}")}
+                val currentPage: Int =
+                    if (readingSessions.readingSession.isNullOrEmpty()) 0 else readingSessions.readingSession!!.last().currentPage
+                CurrentPageItem(
+                    book.book!!.totalPages.toFloat(),
+                    currentPage.toFloat()
+                ) { navController.navigate(Screen.SaveLectureScreen.route + "/${book.book!!.id}") }
             }
             item {
                 Spacer(modifier = Modifier.padding(top = 40.dp))
@@ -131,7 +135,7 @@ fun BookDetailScreen(
                         color = Grey,
                         style = MaterialTheme.typography.titleSmall
                     )
-                    if(readingSessions.isLoading){
+                    if (readingSessions.isLoading) {
                         Box(modifier = Modifier.fillMaxWidth()) {
                             CircularProgressIndicator(
                                 modifier = Modifier.align(Alignment.Center),
@@ -141,7 +145,7 @@ fun BookDetailScreen(
                             )
                         }
                     }
-                    if(readingSessions.error.isNotBlank()){
+                    if (readingSessions.error.isNotBlank()) {
                         Text(
                             text = book.error,
                             color = Color.Red,
@@ -151,9 +155,9 @@ fun BookDetailScreen(
                                 .padding(horizontal = 20.dp)
                         )
                     }
-                    if (!readingSessions.readingSession.isNullOrEmpty()){
+                    if (!readingSessions.readingSession.isNullOrEmpty()) {
                         readingSessions.readingSession.let {
-                            it?.forEach{ session ->
+                            it?.forEach { session ->
                                 Text(
                                     "Date: " + session.date + ". Reading time: " + session.readingTime,
                                     color = Grey,

@@ -86,9 +86,11 @@ fun SaveLectureScreen(
         StateModal { showStateModal = false }
     }
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(BoneBackground)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BoneBackground)
+    ) {
         if (book.isLoading) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 CircularProgressIndicator(
@@ -145,7 +147,12 @@ fun SaveLectureScreen(
                 Spacer(modifier = Modifier.size(20.dp))
             }
             item {
-                SaveLectureCard(Icons.Rounded.Timer, "00:00:00", "reading time", "") {
+                SaveLectureCard(
+                    Icons.Rounded.Timer,
+                    (if (viewModel.minutesSaved.intValue > 0) formatHours(viewModel.hoursSaved.intValue, viewModel.minutesSaved.intValue) else "00:00"),
+                    "reading time",
+                    ""
+                ) {
                     showReadingTimeModal = true
                     showPagesReadModal = false
                     showStateModal = false
@@ -154,7 +161,7 @@ fun SaveLectureScreen(
             item {
                 SaveLectureCard(
                     Icons.Rounded.Bookmark,
-                    "Page 0",
+                    if (viewModel.pagesReadSaved.intValue > 0) "Page ${viewModel.pagesReadSaved.intValue}" else "Page ${viewModel.lastPageSaved.intValue}",
                     "current page",
                     "/ " + book.book!!.totalPages
                 ) {
@@ -166,7 +173,7 @@ fun SaveLectureScreen(
             item {
                 SaveLectureCard(
                     Icons.AutoMirrored.Rounded.MenuBook,
-                    book.book!!.state,
+                    viewModel.state.value.ifBlank { viewModel.lastStateSaved.value },
                     "state",
                     ""
                 ) {
@@ -195,4 +202,11 @@ fun getCurrentDay(viewModel: BookDetailViewModel): String {
             "$minute"
     viewModel.onDateChange(date)
     return date
+}
+
+fun formatHours(hours: Int, minutes: Int): String{
+    var formattedHours = ""
+    if(hours.toString().length == 1) formattedHours = "0$hours:" else formattedHours = "$hours:"
+    if(minutes.toString().length == 1) formattedHours += "0$minutes" else formattedHours += "$minutes"
+    return formattedHours
 }

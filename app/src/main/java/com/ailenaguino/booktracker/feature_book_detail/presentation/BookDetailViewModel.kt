@@ -51,6 +51,8 @@ class BookDetailViewModel @Inject constructor(
     val hoursSaved = mutableIntStateOf(0)
     val minutesSaved = mutableIntStateOf(0)
     val pagesReadSaved = mutableIntStateOf(0)
+    val lastPageSaved = mutableIntStateOf(0)
+    val lastStateSaved = mutableStateOf("")
 
     private var bookId: Int = 0
 
@@ -67,10 +69,13 @@ class BookDetailViewModel @Inject constructor(
         getBookByIdUseCase(id).onEach {
             when (it) {
                 is Resource.Error -> _book.value =
-                    BookState(error = it.message ?: "Un error inesperado ocurrió")
+                    BookState(error = it.message ?: "An unexpected error occurred")
 
                 is Resource.Loading -> _book.value = BookState(isLoading = true)
-                is Resource.Success -> _book.value = BookState(book = it.data)
+                is Resource.Success -> {
+                    _book.value = BookState(book = it.data)
+                    lastStateSaved.value = book.value.book!!.state
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -99,8 +104,9 @@ class BookDetailViewModel @Inject constructor(
                 is Resource.Loading -> _readingSessions.value =
                     ReadingSessionState(isLoading = true)
 
-                is Resource.Success -> _readingSessions.value =
+                is Resource.Success -> { _readingSessions.value =
                     ReadingSessionState(readingSession = it.data)
+                    lastPageSaved.intValue = readingSessions.value.readingSession!!.last().currentPage}
             }
         }.launchIn(viewModelScope)
     }
