@@ -35,6 +35,9 @@ interface BookDao {
     @Query("SELECT * FROM book_table WHERE state = '${Constants.READ_NOW}'")
     suspend fun getReadNowBooks(): List<BookEntity>
 
+    @Query("SELECT * FROM book_table WHERE state = '${Constants.PAUSED}'")
+    suspend fun getStoppedBooks(): List<BookEntity>
+
     @Query("SELECT * FROM session_table WHERE book_id = :bookId")
     suspend fun getSessionsByBookId(bookId: Int): List<SessionEntity>
 

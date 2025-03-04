@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ailenaguino.booktracker.common.BookState
 import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.common.Constants.GAVE_UP
+import com.ailenaguino.booktracker.common.Constants.PAUSED
 import com.ailenaguino.booktracker.common.Constants.READ_LATER
 import com.ailenaguino.booktracker.common.ListBooksState
 import com.ailenaguino.booktracker.common.Resource
@@ -96,5 +97,9 @@ class HomeViewModel @Inject constructor(
 
     fun getGaveUpBooks(): List<Book> {
         return _books.value.books.filter { it.state == GAVE_UP }
+    }
+
+    fun getStoppedBooks(): List<Book> {
+        return _books.value.books.filter { it.state == PAUSED }
     }
 }

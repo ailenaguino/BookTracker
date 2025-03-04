@@ -21,6 +21,7 @@ import com.ailenaguino.booktracker.feature_home.presentation.HomeScreen
 import com.ailenaguino.booktracker.feature_library.presentation.LibraryScreen
 import com.ailenaguino.booktracker.feature_read_later.presentation.ReadLaterScreen
 import com.ailenaguino.booktracker.feature_search_book.presentation.SearchBookScreen
+import com.ailenaguino.booktracker.feature_stopped.presentation.StoppedScreen
 import com.ailenaguino.booktracker.ui.theme.BookTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -90,6 +91,11 @@ class MainActivity : ComponentActivity() {
                             route = Screen.SaveLectureScreen.route + "/{${Constants.PARAM_BOOK_ID}}"
                         ){
                             SaveLectureScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.StoppedScreen.route
+                        ){
+                            StoppedScreen(navController = navController)
                         }
                     }
                 }

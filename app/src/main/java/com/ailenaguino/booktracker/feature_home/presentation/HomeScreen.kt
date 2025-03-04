@@ -177,10 +177,11 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     modifier = Modifier
                         .weight(5f)
                         .padding(horizontal = 10.dp)
+                        .clickable { navController.navigate(Screen.StoppedScreen.route) }
                 ) {
                     CardItem(
                         "Stopped books",
-                        "There are no books",
+                        "There are ${viewModel.getStoppedBooks().size} books",
                         Icons.Rounded.Pause,
                         modifierForCollections
                     )

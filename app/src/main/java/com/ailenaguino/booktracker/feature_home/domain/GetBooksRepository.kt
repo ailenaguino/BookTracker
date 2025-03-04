@@ -8,4 +8,5 @@ interface GetBooksRepository {
     suspend fun deleteAllBooks(): Int
     suspend fun getReadLaterBooks(): List<Book>
     suspend fun getGaveUpBooks(): List<Book>
+    suspend fun getStoppedBooks(): List<Book>
 }

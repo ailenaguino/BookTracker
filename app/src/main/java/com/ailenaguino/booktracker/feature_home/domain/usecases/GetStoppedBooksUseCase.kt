@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetReadLaterBooksUseCase @Inject constructor(private val getBooksRepository: GetBooksRepository) {
+class GetStoppedBooksUseCase @Inject constructor(private val getBooksRepository: GetBooksRepository) {
     operator fun invoke(): Flow<Resource<List<Book>>> = flow {
         try {
             emit(Resource.Loading())
-            val books = getBooksRepository.getReadLaterBooks()
+            val books = getBooksRepository.getStoppedBooks()
             emit(Resource.Success(books))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "An unexpected error occurred"))

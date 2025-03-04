@@ -33,4 +33,8 @@ class GetBooksRepositoryImpl @Inject constructor(private val bookDao: BookDao): 
     override suspend fun getGaveUpBooks(): List<Book> {
         return bookDao.getGaveUpBooks().map { it.toBook() }
     }
+
+    override suspend fun getStoppedBooks(): List<Book> {
+        return bookDao.getStoppedBooks().map { it.toBook() }
+    }
 }

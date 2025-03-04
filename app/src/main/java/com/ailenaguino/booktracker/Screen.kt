@@ -9,5 +9,7 @@ sealed class Screen(val route: String) {
     data object GaveUpScreen: Screen("gave_up_screen")
     data object BookDetailScreen: Screen("book_detail_screen")
     data object SaveLectureScreen: Screen("save_lecture_screen")
+    data object StoppedScreen: Screen("stopped_screen")
+
 
 }
