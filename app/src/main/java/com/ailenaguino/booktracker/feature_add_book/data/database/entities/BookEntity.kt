@@ -14,7 +14,10 @@ data class BookEntity(
     @ColumnInfo(name = "total_pages") val totalPages: Int,
     @ColumnInfo(name = "type_book") val typeBook: String,
     @ColumnInfo(name = "register_progress") val registerProgress: String,
-    @ColumnInfo(name = "state") val state: String
+    @ColumnInfo(name = "state") val state: String,
+    @ColumnInfo(name = "current_page") val currentPage: Int = 0,
+    @ColumnInfo(name = "started_day") val startedDay: String = "",
+    @ColumnInfo(name = "sessions") val sessions: Int = 0
 )
 
 fun BookEntity.toBook(): Book {
@@ -26,6 +29,9 @@ fun BookEntity.toBook(): Book {
         totalPages = totalPages,
         typeBook = typeBook,
         registerProgress = registerProgress,
-        state = state
+        state = state,
+        currentPage = currentPage,
+        startedDay = startedDay,
+        sessions = sessions
     )
 }

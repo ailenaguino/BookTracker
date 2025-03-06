@@ -53,6 +53,7 @@ class BookDetailViewModel @Inject constructor(
     val pagesReadSaved = mutableIntStateOf(0)
     val lastPageSaved = mutableIntStateOf(0)
     val lastStateSaved = mutableStateOf("")
+    val isSaved = mutableIntStateOf(0)
 
     private var bookId: Int = 0
 
@@ -83,14 +84,14 @@ class BookDetailViewModel @Inject constructor(
     fun saveReadingSession() {
         viewModelScope.launch {
             _book.value.book.let {
-                saveReadingSessionUseCase(
+                isSaved.intValue = saveReadingSessionUseCase(
                     hoursSaved.intValue,
                     minutesSaved.intValue,
                     pagesReadSaved.intValue,
-                    _state.value,
+                    _state.value.ifBlank { lastStateSaved.value },
                     bookId,
                     _date.value
-                )
+                )?.toInt() ?: 0
             }
         }
     }

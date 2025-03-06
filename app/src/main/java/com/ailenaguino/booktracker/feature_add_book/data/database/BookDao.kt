@@ -44,4 +44,13 @@ interface BookDao {
     @Query("UPDATE book_table SET state = :state WHERE id = :bookId")
     suspend fun updateBookState(bookId: Int, state: String)
 
+    @Query("UPDATE book_table SET current_page = :currentPage WHERE id = :bookId")
+    suspend fun updateCurrentPage(bookId: Int, currentPage: Int)
+
+    @Query("UPDATE book_table SET started_day = :startedDay WHERE id = :bookId")
+    suspend fun updateStartedDay(bookId: Int, startedDay: String)
+
+    @Query("UPDATE book_table SET sessions = :sessions WHERE id = :bookId")
+    suspend fun updateSessions(bookId: Int, sessions: Int)
+
 }

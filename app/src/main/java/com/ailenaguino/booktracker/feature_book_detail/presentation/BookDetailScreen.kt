@@ -88,16 +88,14 @@ fun BookDetailScreen(
             state = listState
         ) {
             stickyHeader {
-                ArrowBack(showButton) { navController.popBackStack() }
+                ArrowBack(showButton) { navController.navigate(Screen.HomeScreen.route) }
                 Spacer(modifier = Modifier.padding(top = 20.dp))
             }
             item {
                 CoverItem(
                     book.book!!.cover,
                     book.book!!.title,
-                    book.book!!.author,
-                    "4",
-                    "13/02/2025"
+                    book.book!!.author
                 )
                 Spacer(modifier = Modifier.padding(top = 40.dp))
             }

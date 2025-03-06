@@ -6,6 +6,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.MenuBook
@@ -54,6 +56,7 @@ import com.ailenaguino.booktracker.feature_home.presentation.components.AddBookI
 import com.ailenaguino.booktracker.feature_home.presentation.components.BookAddedDialog
 import com.ailenaguino.booktracker.feature_home.presentation.components.CardItem
 import com.ailenaguino.booktracker.feature_home.presentation.components.NewReadLaterItem
+import com.ailenaguino.booktracker.feature_home.presentation.components.ReadNowBookCard
 import com.ailenaguino.booktracker.ui.sharedComponents.AddBookDialog
 import com.ailenaguino.booktracker.ui.theme.BoneBackground
 import com.ailenaguino.booktracker.ui.theme.Grey
@@ -82,6 +85,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     val wasNotified by viewModel.wasNotified.collectAsState()
     val books by viewModel.books.collectAsState()
     val bookAdded by viewModel.book.collectAsState()
+    val readingSession by viewModel.readingSession.collectAsState()
 
     AnimatedVisibility(visible, enter = slideInVertically(), exit = slideOutVertically()) {
         AddBookDialog(navController) { visible = false }
@@ -133,6 +137,28 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 )
                 Spacer(modifier = Modifier.height(30.dp))
             }
+        }
+        item {
+            if (books.books.isNotEmpty()) {
+                val readNowBooks = viewModel.getReadNowBooks()
+                if (readNowBooks.isNotEmpty()) {
+                    Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+                        readNowBooks.forEach {
+                            ReadNowBookCard(
+                                it.currentPage,
+                                it.totalPages,
+                                it.title,
+                                it.author,
+                                it.cover,
+                                "10",
+                                "10/10/2000"
+                            ) { navController.navigate(Screen.BookDetailScreen.route + "/${it.id}") }
+                        }
+                    }
+                }
+            }
+        }
+        item {
             AddBookItem { visible = true }
             Spacer(modifier = Modifier.height(30.dp))
         }

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.ailenaguino.booktracker.feature_add_book.data.database.entities.BookEntity
 import com.ailenaguino.booktracker.feature_add_book.data.database.entities.SessionEntity
 
-@Database(entities = [BookEntity::class, SessionEntity::class], version = 3)
+@Database(entities = [BookEntity::class, SessionEntity::class], version = 4)
 abstract class BookDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
 }

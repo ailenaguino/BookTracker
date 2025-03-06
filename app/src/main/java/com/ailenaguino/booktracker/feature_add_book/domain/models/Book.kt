@@ -8,5 +8,8 @@ data class Book(
     val totalPages: Int,
     val typeBook: String,
     val registerProgress: String,
-    var state: String
+    var state: String,
+    var currentPage: Int = 0,
+    var startedDay: String = "",
+    var sessions: Int = 0
 )

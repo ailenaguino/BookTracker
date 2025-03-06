@@ -30,7 +30,7 @@ import com.ailenaguino.booktracker.ui.theme.LightBlue
 import com.ailenaguino.booktracker.ui.theme.Orange
 
 @Composable
-fun CoverItem(cover:String, title:String, author:String, day:String, date:String) {
+fun CoverItem(cover:String, title:String, author:String) {
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,

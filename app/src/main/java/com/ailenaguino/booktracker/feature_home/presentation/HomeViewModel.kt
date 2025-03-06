@@ -9,9 +9,13 @@ import com.ailenaguino.booktracker.common.Constants
 import com.ailenaguino.booktracker.common.Constants.GAVE_UP
 import com.ailenaguino.booktracker.common.Constants.PAUSED
 import com.ailenaguino.booktracker.common.Constants.READ_LATER
+import com.ailenaguino.booktracker.common.Constants.READ_NOW
 import com.ailenaguino.booktracker.common.ListBooksState
+import com.ailenaguino.booktracker.common.ReadingSessionState
 import com.ailenaguino.booktracker.common.Resource
 import com.ailenaguino.booktracker.feature_add_book.domain.models.Book
+import com.ailenaguino.booktracker.feature_book_detail.domain.models.ReadingSession
+import com.ailenaguino.booktracker.feature_book_detail.domain.usecases.GetReadingSessionsUseCase
 import com.ailenaguino.booktracker.feature_home.domain.GetBooksRepository
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBookByIdUseCase
 import com.ailenaguino.booktracker.feature_home.domain.usecases.GetBooksUseCase
@@ -28,6 +32,7 @@ class HomeViewModel @Inject constructor(
     private val getBooksUseCase: GetBooksUseCase,
     savedStateHandle: SavedStateHandle,
     private val getBookByIdUseCase: GetBookByIdUseCase,
+    private val getReadingSessionsUseCase: GetReadingSessionsUseCase,
     private val repo: GetBooksRepository
 ) : ViewModel() {
 
@@ -36,6 +41,12 @@ class HomeViewModel @Inject constructor(
 
     private val _book = MutableStateFlow(BookState())
     val book: StateFlow<BookState> = _book
+
+    private val _readingSession = MutableStateFlow(ReadingSessionState())
+    val readingSession: StateFlow<ReadingSessionState> = _readingSession
+
+    private val _listReadingSessions = mutableListOf<List<ReadingSession>>()
+    val listReadingSessions: List<List<ReadingSession>> = _listReadingSessions
 
     private val _openBookAddedDialog = MutableStateFlow(false)
     val openBookAddedDialog: StateFlow<Boolean> = _openBookAddedDialog
@@ -101,5 +112,23 @@ class HomeViewModel @Inject constructor(
 
     fun getStoppedBooks(): List<Book> {
         return _books.value.books.filter { it.state == PAUSED }
+    }
+
+    fun getReadNowBooks(): List<Book> {
+        return _books.value.books.filter { it.state == READ_NOW }
+    }
+
+    fun getReadingSessions(bookId: Int) {
+        getReadingSessionsUseCase(bookId).onEach {
+            when(it){
+                is Resource.Error -> _readingSession.value =
+                    ReadingSessionState(error = it.message ?: "An unexpected error occurred")
+                is Resource.Loading -> _readingSession.value = ReadingSessionState(isLoading = true)
+                is Resource.Success -> {
+                    _readingSession.value = ReadingSessionState(readingSession = it.data)
+                    _listReadingSessions.add(it.data?: emptyList())
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

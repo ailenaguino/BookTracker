@@ -12,7 +12,11 @@ class GetReadingSessionsUseCase @Inject constructor(private val repository: Read
         emit(Resource.Loading())
         try {
             val readingSessions = repository.getReadingSessions(bookId)
-            emit(Resource.Success(readingSessions))
+            if (readingSessions.isEmpty()) {
+                emit(Resource.Error("No reading sessions found"))
+            }else {
+                emit(Resource.Success(readingSessions))
+            }
         } catch(e: Exception) {
             emit(Resource.Error(e.message ?: "An unexpected error occurred"))
         }

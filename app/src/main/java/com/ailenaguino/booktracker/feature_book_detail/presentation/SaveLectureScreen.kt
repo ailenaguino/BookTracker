@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ailenaguino.booktracker.Screen
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.PagesReadModal
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.ReadingTimeModal
 import com.ailenaguino.booktracker.feature_book_detail.presentation.components.SaveLectureCard
@@ -58,7 +59,7 @@ fun SaveLectureScreen(
     var showReadingTimeModal by remember { mutableStateOf(false) }
     var showPagesReadModal by remember { mutableStateOf(false) }
     var showStateModal by remember { mutableStateOf(false) }
-    val state by viewModel.state
+    val isSaved by viewModel.isSaved
     val book by viewModel.book.collectAsState()
     val showButton by remember {
         derivedStateOf {
@@ -115,6 +116,10 @@ fun SaveLectureScreen(
 
 
     if (book.book != null) {
+        if(isSaved != 0){
+            navController.navigate(Screen.BookDetailScreen.route + "/${book.book!!.id}")
+        }
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

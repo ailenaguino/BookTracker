@@ -23,6 +23,7 @@ class ReadingSessionRepositoryImpl @Inject constructor(private val bookDao: Book
             date = date
         )
         bookDao.updateBookState(bookId, state)
+        bookDao.updateCurrentPage(bookId, pagesRead)
         return bookDao.insertSession(session)
     }
 

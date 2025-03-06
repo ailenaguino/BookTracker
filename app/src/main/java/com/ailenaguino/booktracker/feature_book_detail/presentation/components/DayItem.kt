@@ -3,6 +3,7 @@ package com.ailenaguino.booktracker.feature_book_detail.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,31 +13,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ailenaguino.booktracker.ui.theme.Orange
+import com.ailenaguino.booktracker.ui.theme.BoneBackground
+import com.ailenaguino.booktracker.ui.theme.LightBlue
 
 @Composable
-fun DayItem(day: String, date: String) {
+fun DayItem(sessions: String, date: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
+            .fillMaxWidth()
             .height(60.dp)
-            .shadow(10.dp, RoundedCornerShape(20.dp))
+            //.shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(listOf(Color.White, Color.White)))
+            .background(Color.Transparent)
             .padding(10.dp)
     ) {
         Text(
-            "Day $day",
-            color = Orange,
+            "$sessions sessions",
+            color = LightBlue,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
-        Text("Since $date", style = MaterialTheme.typography.labelMedium, color = Color.DarkGray)
+        Text("Since $date", style = MaterialTheme.typography.labelMedium, color = BoneBackground)
     }
 }
