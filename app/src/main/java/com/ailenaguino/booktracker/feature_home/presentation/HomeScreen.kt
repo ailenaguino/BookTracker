@@ -150,8 +150,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                                 it.title,
                                 it.author,
                                 it.cover,
-                                "10",
-                                "10/10/2000"
+                                it.sessions.toString(),
+                                it.startedDay
                             ) { navController.navigate(Screen.BookDetailScreen.route + "/${it.id}") }
                         }
                     }

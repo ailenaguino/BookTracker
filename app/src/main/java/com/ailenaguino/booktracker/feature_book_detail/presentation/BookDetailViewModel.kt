@@ -54,6 +54,7 @@ class BookDetailViewModel @Inject constructor(
     val lastPageSaved = mutableIntStateOf(0)
     val lastStateSaved = mutableStateOf("")
     val isSaved = mutableIntStateOf(0)
+    val isFirstSession = mutableStateOf(false)
 
     private var bookId: Int = 0
 
@@ -90,7 +91,8 @@ class BookDetailViewModel @Inject constructor(
                     pagesReadSaved.intValue,
                     _state.value.ifBlank { lastStateSaved.value },
                     bookId,
-                    _date.value
+                    _date.value,
+                    isFirstSession.value
                 )?.toInt() ?: 0
             }
         }
@@ -99,15 +101,24 @@ class BookDetailViewModel @Inject constructor(
     private fun getReadingSessions(bookId: Int) {
         getReadingSessionsUseCase(bookId).onEach {
             when (it) {
-                is Resource.Error -> _readingSessions.value =
-                    ReadingSessionState(error = it.message ?: "An unexpected error occurred")
+                is Resource.Error -> {
+                    _readingSessions.value =
+                        ReadingSessionState(error = it.message ?: "An unexpected error occurred")
+                    if (it.message == "No reading sessions found") {
+                        isFirstSession.value = true
+                    }
+                }
 
                 is Resource.Loading -> _readingSessions.value =
                     ReadingSessionState(isLoading = true)
 
-                is Resource.Success -> { _readingSessions.value =
-                    ReadingSessionState(readingSession = it.data)
-                    lastPageSaved.intValue = readingSessions.value.readingSession!!.last().currentPage}
+                is Resource.Success -> {
+                    _readingSessions.value =
+                        ReadingSessionState(readingSession = it.data)
+                    lastPageSaved.intValue =
+                        readingSessions.value.readingSession!!.last().currentPage
+                    isFirstSession.value = false
+                }
             }
         }.launchIn(viewModelScope)
     }

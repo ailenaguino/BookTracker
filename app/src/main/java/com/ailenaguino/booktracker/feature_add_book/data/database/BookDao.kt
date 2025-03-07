@@ -48,9 +48,9 @@ interface BookDao {
     suspend fun updateCurrentPage(bookId: Int, currentPage: Int)
 
     @Query("UPDATE book_table SET started_day = :startedDay WHERE id = :bookId")
-    suspend fun updateStartedDay(bookId: Int, startedDay: String)
+    suspend fun addStartedDay(bookId: Int, startedDay: String)
 
-    @Query("UPDATE book_table SET sessions = :sessions WHERE id = :bookId")
-    suspend fun updateSessions(bookId: Int, sessions: Int)
+    @Query("UPDATE book_table SET sessions = sessions + 1 WHERE id = :bookId")
+    suspend fun addOneSession(bookId: Int)
 
 }

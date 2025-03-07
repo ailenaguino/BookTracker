@@ -14,7 +14,8 @@ class ReadingSessionRepositoryImpl @Inject constructor(private val bookDao: Book
         pagesRead: Int,
         state: String,
         bookId: Int,
-        date: String
+        date: String,
+        isFirst: Boolean
     ): Long? {
         val session = SessionEntity(
             bookId = bookId,
@@ -24,6 +25,10 @@ class ReadingSessionRepositoryImpl @Inject constructor(private val bookDao: Book
         )
         bookDao.updateBookState(bookId, state)
         bookDao.updateCurrentPage(bookId, pagesRead)
+        bookDao.addOneSession(bookId)
+        if(isFirst){
+            bookDao.addStartedDay(bookId, date)
+        }
         return bookDao.insertSession(session)
     }
 

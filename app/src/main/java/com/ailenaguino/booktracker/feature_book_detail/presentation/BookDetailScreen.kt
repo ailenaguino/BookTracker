@@ -129,7 +129,9 @@ fun BookDetailScreen(
                         style = MaterialTheme.typography.titleSmall
                     )
                     Text(
-                        "You want to register the progress by: " + book.book!!.registerProgress,
+                        "You want to register the progress by: " + book.book!!.registerProgress
+                                + ", reading session is first: " + viewModel.isFirstSession.value +
+                        " total reading sessions: "+book.book!!.sessions + " beginning day: " + book.book!!.startedDay,
                         color = Grey,
                         style = MaterialTheme.typography.titleSmall
                     )
