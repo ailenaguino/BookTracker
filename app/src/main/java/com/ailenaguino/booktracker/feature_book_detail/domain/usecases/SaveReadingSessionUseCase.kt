@@ -14,10 +14,6 @@ class SaveReadingSessionUseCase @Inject constructor(private val repository: Read
         isFirst: Boolean
     ): Long? {
         val totalMinutes = hours * 60 + minutes
-        var startedDay = date
-        if(isFirst){
-            startedDay = date.substringBefore(" ")
-        }
-        return repository.saveReadingSession(totalMinutes, pagesRead, state, bookId, startedDay, isFirst)
+        return repository.saveReadingSession(totalMinutes, pagesRead, state, bookId, date, isFirst)
     }
 }

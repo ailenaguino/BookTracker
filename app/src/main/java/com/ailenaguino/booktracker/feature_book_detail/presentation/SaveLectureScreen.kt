@@ -154,7 +154,7 @@ fun SaveLectureScreen(
             item {
                 SaveLectureCard(
                     Icons.Rounded.Timer,
-                    (if (viewModel.minutesSaved.intValue > 0) formatHours(viewModel.hoursSaved.intValue, viewModel.minutesSaved.intValue) else "00:00"),
+                    (if (viewModel.minutesSaved.intValue > 0 || viewModel.hoursSaved.intValue > 0) formatHours(viewModel.hoursSaved.intValue, viewModel.minutesSaved.intValue) else "00:00"),
                     "reading time",
                     ""
                 ) {

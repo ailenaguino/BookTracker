@@ -27,13 +27,12 @@ fun DayItem(sessions: String, date: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            //.shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
             .background(Color.Transparent)
             .padding(10.dp)
     ) {
         Text(
-            "$sessions sessions",
+            text = if(sessions == "1") "1 session" else "($sessions sessions)",
             color = LightBlue,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold

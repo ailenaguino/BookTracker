@@ -41,7 +41,7 @@ fun CoverItem(cover:String, title:String, author:String) {
             .offset(x = (-50).dp, y = 0.dp)
             .shadow(10.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(listOf(Orange, LightBlue)))
+            .background(LightBlue)
     ) {
         AsyncImage(
             model = cover,
